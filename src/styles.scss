@@ -1,0 +1,33 @@
+[dir="ltr"] {
+    
+
+@font-face {
+    font-family: 'Dubai';
+    src: url('./assets/fonts/Dubai-Regular.eot');
+    src: url('./assets/fonts/Dubai-Regular.eot?#iefix') format('embedded-opentype'), url('./assets/fonts/Dubai-Regular.woff2') format('woff2'), url('./assets/fonts/Dubai-Regular.woff') format('woff'), url('./assets/fonts/Dubai-Regular.ttf') format('truetype'), url('./assets/fonts/Dubai-Regular.svg#Dubai') format('svg');
+}
+
+@font-face {
+    font-family: 'DubaiBold';
+    src: url('./assets/fonts/Dubai-Bold-1.eot');
+    src: url('./assets/fonts/Dubai-Bold-1.eot?#iefix') format('embedded-opentype'), url('./assets/fonts/Dubai-Bold-1.woff2') format('woff2'), url('./assets/fonts/Dubai-Bold-1.woff') format('woff'), url('./assets/fonts/Dubai-Bold-1.ttf') format('truetype'), url('./assets/fonts/Dubai-Bold-1.svg#Dubai') format('svg');
+}
+
+
+}
+  
+  [dir="rtl"] {
+    
+@font-face {
+
+    font-family: 'Janna LT';
+    src: url('./assets/fonts/ArbFONTS-Janna-LT-Regular.eot');
+    src: url('./assets/fonts/ArbFONTS-Janna-LT-Regular.eot?#iefix') format('embedded-opentype'),
+         url('./assets/fonts/ArbFONTS-Janna-LT-Regular.woff2') format('woff2'),
+         url('./assets/fonts/ArbFONTS-Janna-LT-Regular.woff') format('woff'),
+         url('./assets/fonts/ArbFONTS-Janna-LT-Regular.ttf')  format('truetype'),
+         url('./assets/fonts/ArbFONTS-Janna-LT-Regular.svg#Janna LT') format('svg');
+}
+
+
+  }
