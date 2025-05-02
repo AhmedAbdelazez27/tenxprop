@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/shelf-cdemo",
+            "outputPath": "dist/tenx-prop",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
