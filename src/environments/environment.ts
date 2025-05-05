@@ -1,5 +1,4 @@
 export const environment = {
   production: false,
-  // baseUrl: ''
-  baseUrl: ''
+  baseUrl: 'http://compassint.ddns.net:2027/'
 };

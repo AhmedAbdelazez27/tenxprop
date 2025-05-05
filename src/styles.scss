@@ -1,33 +1,436 @@
 [dir="ltr"] {
-    
-
-@font-face {
-    font-family: 'Dubai';
-    src: url('./assets/fonts/Dubai-Regular.eot');
-    src: url('./assets/fonts/Dubai-Regular.eot?#iefix') format('embedded-opentype'), url('./assets/fonts/Dubai-Regular.woff2') format('woff2'), url('./assets/fonts/Dubai-Regular.woff') format('woff'), url('./assets/fonts/Dubai-Regular.ttf') format('truetype'), url('./assets/fonts/Dubai-Regular.svg#Dubai') format('svg');
-}
-
-@font-face {
-    font-family: 'DubaiBold';
-    src: url('./assets/fonts/Dubai-Bold-1.eot');
-    src: url('./assets/fonts/Dubai-Bold-1.eot?#iefix') format('embedded-opentype'), url('./assets/fonts/Dubai-Bold-1.woff2') format('woff2'), url('./assets/fonts/Dubai-Bold-1.woff') format('woff'), url('./assets/fonts/Dubai-Bold-1.ttf') format('truetype'), url('./assets/fonts/Dubai-Bold-1.svg#Dubai') format('svg');
-}
-
-
-}
-  
-  [dir="rtl"] {
-    
-@font-face {
-
-    font-family: 'Janna LT';
-    src: url('./assets/fonts/ArbFONTS-Janna-LT-Regular.eot');
-    src: url('./assets/fonts/ArbFONTS-Janna-LT-Regular.eot?#iefix') format('embedded-opentype'),
-         url('./assets/fonts/ArbFONTS-Janna-LT-Regular.woff2') format('woff2'),
-         url('./assets/fonts/ArbFONTS-Janna-LT-Regular.woff') format('woff'),
-         url('./assets/fonts/ArbFONTS-Janna-LT-Regular.ttf')  format('truetype'),
-         url('./assets/fonts/ArbFONTS-Janna-LT-Regular.svg#Janna LT') format('svg');
-}
-
-
+ ////////////////////////
+  .login-page {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f8f9fa;
   }
+
+  .login-card {
+    width: 100%;
+    max-width: 400px;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.06);
+    background-color: #fff;
+    text-align: center;
+  }
+
+  .login-logo {
+    width: 120px;
+    margin-bottom: 1rem;
+  }
+
+  .login-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    color: #2e3a59;
+  }
+
+  .form-label {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    text-align: left;
+    display: block;
+  }
+
+  .form-control {
+    padding: 0.75rem;
+    border-radius: 0 0.5rem 0.5rem 0;
+  }
+
+  .input-group-text {
+    background-color: #f1f1f1;
+    border-radius: 0.5rem 0 0 0.5rem;
+  }
+
+  .forgot-password {
+    font-size: 0.875rem;
+    margin: 0.5rem 0 1rem;
+    display: inline-block;
+    text-align: right;
+    color: #6c757d;
+    text-decoration: none;
+  }
+  //////////////////////////////////
+  
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('./assets/fonts/Poppins-Regular.eot');
+  src: url('./assets/fonts/Poppins-Regular.eot?#iefix') format('embedded-opentype'), url('./assets/fonts/Poppins-Regular.woff2') format('woff2'), url('./assets/fonts/Poppins-Regular.woff') format('woff'), url('./assets/fonts/Poppins-Regular.ttf') format('truetype'), url('./assets/fonts/Poppins-Regular.svg#Poppins') format('svg');
+}
+
+@font-face {
+  font-family: 'PoppinsBold';
+  src: url('./assets/fonts/Poppins-Bold.eot');
+  src: url('./assets/fonts/Poppins-Bold.eot?#iefix') format('embedded-opentype'), url('./assets/fonts/Poppins-Bold.woff2') format('woff2'), url('./assets/fonts/Poppins-Bold.woff') format('woff'), url('./assets/fonts/Poppins-Bold.ttf') format('truetype'), url('./assets/fonts/Poppins-Bold.svg#Poppins') format('svg');
+}
+
+.bold {
+  font-family: 'PoppinsBold';
+}
+
+
+h4, h5, h6, span, a, p, button, td, th {
+  font-family: 'Poppins';
+  transition: ease-in-out 0.3s;
+}
+
+h1, h2, h3 {
+  font-family: 'PoppinsBold';
+  transition: ease-in-out 0.3s;
+}
+
+h1, h2, h3, h4, h5, p {
+  margin: 0;
+}
+
+body {
+  background: var(--Color-13, #F6F6F6);
+  padding: 24px;
+  gap: 24px;
+}
+
+.main-section {
+  background-image: url('./assets/images/main-img.png');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  padding: 32px;
+  gap: 24px;
+  border-radius: 20px;
+  background-position: center;
+}
+
+.main-blue {
+  color: var(--Color-14, #4D627D);
+}
+
+.bg-white {
+  background-color: #fff;
+}
+
+.bg-gray {
+  background: var(--bg, #F5F5F5);
+}
+
+.round-20 {
+  border-radius: 20px;
+}
+
+.round-16 {
+  border-radius: 16px;
+}
+
+.round-10 {
+  border-radius: 10px;
+}
+
+.main-links {
+  padding: 24px;
+  justify-content: center;
+  align-content: center;
+  border-radius: 20px;
+  background: var(--Color-5, #FFF);
+  color: var(--Color-12, #4F5663);
+  text-align: center;
+  font-family: Poppins;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  display: block;
+  width: 100%;
+  border: none;
+  margin-bottom: 16px;
+}
+
+  .main-links svg {
+      margin-bottom: 8px;
+  }
+
+.main-table th {
+  background: var(--Color-17, #4B85B5);
+  color: #fff;
+}
+
+  .main-table th:first-child {
+      border-top-left-radius: 10px;
+  }
+
+  .main-table th:last-child {
+      border-top-right-radius: 10px;
+  }
+
+.main-table th, .main-table td {
+  text-align: start;
+  padding: 12px;
+  align-content: center;
+}
+
+.status-red {
+  display: flex;
+  padding: 4px 8px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 5px;
+  background: var(--Color-22, #FFBAB1);
+  font-size: 14px;
+  color: var(--Color-19, #3D3D3D);
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px; /* 142.857% */
+  letter-spacing: -0.1px;
+  width: max-content;
+}
+.status-yellow {
+  display: flex;
+  padding: 4px 8px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 5px;
+  background: var(--Color-20, #FFDB8B);
+  font-size: 14px;
+  color: var(--Color-19, #3D3D3D);
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px; /* 142.857% */
+  letter-spacing: -0.1px;
+  width: max-content;
+}
+
+.status-green {
+  display: flex;
+  padding: 4px 8px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 5px;
+  background: var(--Color-23, #BDF4C9);
+  font-size: 14px;
+  color: var(--Color-19, #3D3D3D);
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px; /* 142.857% */
+  letter-spacing: -0.1px;
+  width: max-content;
+}
+
+.btn-action{
+  padding:0 8px;
+}
+
+
+.notification-box {
+  display: flex;
+  padding: 16px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  align-self: stretch;
+  border-radius: 15px;
+  background: var(--bg, #F5F5F5);
+  margin-bottom:16px;
+}
+
+  .notification-box:last-child {
+      margin-bottom: 0;
+  }
+
+  .notification-box-item-title {
+      color: var(--Color-12, #4F5663);
+      font-family: Poppins;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 20px; /* 142.857% */
+      letter-spacing: -0.1px;
+  }
+
+.notification-days {
+  color: var(--Color-18, #8181D9);
+  font-family: Poppins;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 20px; /* 142.857% */
+  letter-spacing: -0.1px;
+}
+
+.notification-date {
+  color: var(--Color-17, #4B85B5);
+  font-family: Poppins;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 20px; /* 142.857% */
+  letter-spacing: -0.1px;
+}
+
+.breadcrumb-box {
+  display: flex;
+  padding: 16px;
+  align-items: center;
+  gap: 10px;
+  align-self: stretch;
+  border-radius: 20px;
+  background: var(--Color-5, #FFF);
+  margin: 24px 0;
+  color: var(--Color-12, #4F5663);
+  font-family: Poppins;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+  .breadcrumb-box a {
+      color: var(--Color-17, #4B85B5);
+  }
+
+.accordion-item, .accordion-header{
+  border:none;
+}
+
+.accordion-button {
+  border-radius: 15px !important;
+  background: var(--bg, #F5F5F5);
+  color: var(--Color-12, #4F5663);
+  font-family: Poppins;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 20px; /* 83.333% */
+  letter-spacing: -0.1px;
+}
+
+.accordion-item {
+  margin-bottom: 16px;
+  border-radius: 15px !important;
+  background: var(--bg, #F5F5F5);
+}
+
+.accordion-button:not(.collapsed) {
+  color: var(--bs-accordion-active-color);
+  background: var(--bg, #F5F5F5);
+  box-shadow: none;
+  color: var(--Color-12, #4F5663);
+  font-family: Poppins;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 20px; /* 83.333% */
+  letter-spacing: -0.1px;
+}
+
+.btn-main-blue {
+  display: flex;
+  padding: 12px 24px;
+  align-items: center;
+  gap: 4px;
+  border-radius: 15px;
+  background: var(--Color-14, #4D627D);
+  color: var(--Color-5, #FFF);
+  text-align: center;
+  font-family: Poppins;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-transform: capitalize;
+}
+
+.btn-purple {
+  display: flex;
+  padding: 12px 24px;
+  align-items: center;
+  gap: 4px;
+  border-radius: 15px;
+  background: var(--Color-18, #8181D9);
+  color: var(--Color-5, #FFF);
+  text-align: center;
+  font-family: Poppins;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-transform: capitalize;
+}
+
+  @media(max-width:991px){
+      .btn-purple span, .btn-main-blue span {
+          display: none;
+      }
+  }
+
+  .title-gray {
+      color: var(--Color-12, #4F5663);
+      font-family: PoppinsBold;
+      font-size: 20px;
+      font-style: normal;
+      line-height: normal;
+      text-transform: capitalize;
+  }
+
+.unit-details {
+  border-radius: 10px;
+  border: 1px solid var(--Color-17, #4B85B5);
+  background: var(--Color-5, #FFF);
+  display: flex;
+  padding: 16px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  flex: 1 0 0;
+  color: var(--Color-12, #4F5663);
+  font-size: 16px;
+  font-style: normal;
+  line-height: normal;
+  text-transform: capitalize;
+  font-family:PoppinsBold;
+}
+
+.border-bottom {
+  border-bottom: 1px solid var(--Color-4, #B6B6B7);
+  padding-bottom:8px;
+}
+}
+
+[dir="rtl"] {
+  @font-face {
+    font-family: 'Poppins';
+    src: url('./assets/fonts/Poppins-Regular.eot');
+    src: url('./assets/fonts/Poppins-Regular.eot?#iefix') format('embedded-opentype'), url('./assets/fonts/Poppins-Regular.woff2') format('woff2'), url('./assets/fonts/Poppins-Regular.woff') format('woff'), url('./assets/fonts/Poppins-Regular.ttf') format('truetype'), url('./assets/fonts/Poppins-Regular.svg#Poppins') format('svg');
+  }
+  
+  @font-face {
+    font-family: 'PoppinsBold';
+    src: url('./assets/fonts/Poppins-Bold.eot');
+    src: url('./assets/fonts/Poppins-Bold.eot?#iefix') format('embedded-opentype'), url('./assets/fonts/Poppins-Bold.woff2') format('woff2'), url('./assets/fonts/Poppins-Bold.woff') format('woff'), url('./assets/fonts/Poppins-Bold.ttf') format('truetype'), url('./assets/fonts/Poppins-Bold.svg#Poppins') format('svg');
+  }
+  .bold {
+    font-family: 'PoppinsBold';
+  }
+
+  .form-label {
+    text-align: right;
+  }
+
+  .input-group {
+    flex-direction: row-reverse;
+  }
+
+  .input-group-text {
+    border-radius: 0 0.5rem 0.5rem 0 !important;
+  }
+
+  .form-control {
+    border-radius: 0.5rem 0 0 0.5rem;
+    padding: 0.75rem;
+  }
+}
