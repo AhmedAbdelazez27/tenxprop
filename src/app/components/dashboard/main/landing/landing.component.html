@@ -12,31 +12,13 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Link</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Dropdown
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-                </li>
             </ul>
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
         </div>
     </div>
 </nav>
 
 <div class="main-section mt-4">
-    <h1 class="main-blue mb-4">Welcome, <span>Mohamed Ali</span></h1>
+    <h1 class="main-blue mb-4">Welcome, <span>{{userData?.name}}</span></h1>
     <div class="bg-white p-3 round-20">
         <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
     </div>
@@ -44,7 +26,7 @@
 
 <div class="row mt-4">
     <div class="col-lg">
-        <button class="main-links">
+        <button class="main-links" (click)="routeTo('/Main/Contract')">
             <div>
                 <svg xmlns="http://www.w3.org/2000/svg" width="41" height="40" viewBox="0 0 41 40" fill="none">
                     <path d="M23.9336 5V11.6667C23.9336 12.1087 24.1092 12.5326 24.4217 12.8452C24.7343 13.1577 25.1582 13.3333 25.6003 13.3333H32.2669M23.9336 5H12.2669C11.3829 5 10.535 5.35119 9.9099 5.97631C9.28478 6.60143 8.93359 7.44928 8.93359 8.33333V31.6667C8.93359 32.5507 9.28478 33.3986 9.9099 34.0237C10.535 34.6488 11.3829 35 12.2669 35H28.9336C29.8176 35 30.6655 34.6488 31.2906 34.0237C31.9157 33.3986 32.2669 32.5507 32.2669 31.6667V13.3333M23.9336 5L32.2669 13.3333M15.6003 28.3333H25.6003M15.6003 21.6667H25.6003" stroke="#4B85B5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -128,73 +110,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>103</td>
-                        <td>Apartment</td>
-                        <td>Quarterly</td>
-                        <td>40,000 AED</td>
-                        <td>01/04/2025</td>
+                    <tr *ngFor="let item of contractsList ; let index=index">
+                        <td>{{item?.contractNumber}}</td>
+                        <td>{{item?.fndUnitTypeLkp?.nameEn}}</td>
+                        <td>{{item?.fndStatusLkp?.lookupCode}}</td>
+                        <td>{{ item?.rentAmount | currency:'AED' }}</td>
+                        <td>{{item?.contractEndDate}}</td>
                         <td>
-                            <div class="status-red">
-                                Bounced
-                            </div>
-                        </td>
-                        <td>
-                            <button class="btn btn-action">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
-                                    <path d="M7.28599 9.99998H10.286V6.99998L6.78599 3.49998C7.90562 2.96525 9.16349 2.79078 10.3864 3.0006C11.6093 3.21041 12.7371 3.79419 13.6144 4.67155C14.4918 5.5489 15.0755 6.67668 15.2854 7.89958C15.4952 9.12248 15.3207 10.3803 14.786 11.5L20.786 17.5C21.1838 17.8978 21.4073 18.4374 21.4073 19C21.4073 19.5626 21.1838 20.1022 20.786 20.5C20.3882 20.8978 19.8486 21.1213 19.286 21.1213C18.7234 21.1213 18.1838 20.8978 17.786 20.5L11.786 14.5C10.6664 15.0347 9.40849 15.2092 8.18559 14.9994C6.96269 14.7895 5.83491 14.2058 4.95756 13.3284C4.0802 12.451 3.49643 11.3233 3.28661 10.1004C3.07679 8.87748 3.25126 7.61961 3.78599 6.49998L7.28599 9.99998Z" stroke="#4F5663" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                            </button>
-                            <button class="btn btn-action">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
-                                    <path d="M13.0718 21H6.57178C6.04134 21 5.53264 20.7893 5.15756 20.4142C4.78249 20.0391 4.57178 19.5304 4.57178 19V7C4.57178 6.46957 4.78249 5.96086 5.15756 5.58579C5.53264 5.21071 6.04134 5 6.57178 5H18.5718C19.1022 5 19.6109 5.21071 19.986 5.58579C20.3611 5.96086 20.5718 6.46957 20.5718 7V12M16.5718 3V7M8.57178 3V7M4.57178 11H20.5718M16.5718 19H22.5718M19.5718 16V22" stroke="#4F5663" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                            </button>
-                            <button class="btn btn-action">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
-                                    <path d="M4.85742 12V6C4.85742 5.46957 5.06814 4.96086 5.44321 4.58579C5.81828 4.21071 6.32699 4 6.85742 4H18.8574C19.3879 4 19.8966 4.21071 20.2716 4.58579C20.6467 4.96086 20.8574 5.46957 20.8574 6V18C20.8574 18.5304 20.6467 19.0391 20.2716 19.4142C19.8966 19.7893 19.3879 20 18.8574 20H12.8574M12.8574 8H16.8574M16.8574 8V12M16.8574 8L11.8574 13M3.85742 17C3.85742 16.7348 3.96278 16.4804 4.15032 16.2929C4.33785 16.1054 4.59221 16 4.85742 16H7.85742C8.12264 16 8.37699 16.1054 8.56453 16.2929C8.75206 16.4804 8.85742 16.7348 8.85742 17V20C8.85742 20.2652 8.75206 20.5196 8.56453 20.7071C8.37699 20.8946 8.12264 21 7.85742 21H4.85742C4.59221 21 4.33785 20.8946 4.15032 20.7071C3.96278 20.5196 3.85742 20.2652 3.85742 20V17Z" stroke="#4F5663" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>103</td>
-                        <td>Apartment</td>
-                        <td>Quarterly</td>
-                        <td>40,000 AED</td>
-                        <td>01/04/2025</td>
-                        <td>
-                            <div class="status-yellow">
-                                Pending
-                            </div>
-                        </td>
-                        <td>
-                            <button class="btn btn-action">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
-                                    <path d="M7.28599 9.99998H10.286V6.99998L6.78599 3.49998C7.90562 2.96525 9.16349 2.79078 10.3864 3.0006C11.6093 3.21041 12.7371 3.79419 13.6144 4.67155C14.4918 5.5489 15.0755 6.67668 15.2854 7.89958C15.4952 9.12248 15.3207 10.3803 14.786 11.5L20.786 17.5C21.1838 17.8978 21.4073 18.4374 21.4073 19C21.4073 19.5626 21.1838 20.1022 20.786 20.5C20.3882 20.8978 19.8486 21.1213 19.286 21.1213C18.7234 21.1213 18.1838 20.8978 17.786 20.5L11.786 14.5C10.6664 15.0347 9.40849 15.2092 8.18559 14.9994C6.96269 14.7895 5.83491 14.2058 4.95756 13.3284C4.0802 12.451 3.49643 11.3233 3.28661 10.1004C3.07679 8.87748 3.25126 7.61961 3.78599 6.49998L7.28599 9.99998Z" stroke="#4F5663" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                            </button>
-                            <button class="btn btn-action">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
-                                    <path d="M13.0718 21H6.57178C6.04134 21 5.53264 20.7893 5.15756 20.4142C4.78249 20.0391 4.57178 19.5304 4.57178 19V7C4.57178 6.46957 4.78249 5.96086 5.15756 5.58579C5.53264 5.21071 6.04134 5 6.57178 5H18.5718C19.1022 5 19.6109 5.21071 19.986 5.58579C20.3611 5.96086 20.5718 6.46957 20.5718 7V12M16.5718 3V7M8.57178 3V7M4.57178 11H20.5718M16.5718 19H22.5718M19.5718 16V22" stroke="#4F5663" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                            </button>
-                            <button class="btn btn-action">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
-                                    <path d="M4.85742 12V6C4.85742 5.46957 5.06814 4.96086 5.44321 4.58579C5.81828 4.21071 6.32699 4 6.85742 4H18.8574C19.3879 4 19.8966 4.21071 20.2716 4.58579C20.6467 4.96086 20.8574 5.46957 20.8574 6V18C20.8574 18.5304 20.6467 19.0391 20.2716 19.4142C19.8966 19.7893 19.3879 20 18.8574 20H12.8574M12.8574 8H16.8574M16.8574 8V12M16.8574 8L11.8574 13M3.85742 17C3.85742 16.7348 3.96278 16.4804 4.15032 16.2929C4.33785 16.1054 4.59221 16 4.85742 16H7.85742C8.12264 16 8.37699 16.1054 8.56453 16.2929C8.75206 16.4804 8.85742 16.7348 8.85742 17V20C8.85742 20.2652 8.75206 20.5196 8.56453 20.7071C8.37699 20.8946 8.12264 21 7.85742 21H4.85742C4.59221 21 4.33785 20.8946 4.15032 20.7071C3.96278 20.5196 3.85742 20.2652 3.85742 20V17Z" stroke="#4F5663" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>103</td>
-                        <td>Apartment</td>
-                        <td>Quarterly</td>
-                        <td>40,000 AED</td>
-                        <td>01/04/2025</td>
-                        <td>
-                            <div class="status-green">
-                                Cleared
+                            <div [ngClass]="getStatusClass(item?.fndStatusLkp)">
+                                {{item?.fndStatusLkp?.nameEn}}
                             </div>
                         </td>
                         <td>

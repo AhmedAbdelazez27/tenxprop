@@ -1,53 +1,27 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LandingService {
   // private baseUrl = 'http://compassint.ddns.net:2036/api/services/app/'
-  private baseUrl = 'https://api.saudcharity.ae/api/services/app/'
+    private baseUrl = environment.baseUrl;
+  
   constructor(private http: HttpClient) { }
 
-  getSlider(): Observable<any> {
-    
-    return this.http.get<any>(`${this.baseUrl}PrSliderSettings/GetAllSliders`);
+  getContracts(params:any): Observable<any> {
+    let httpParams = new HttpParams();
+    for (const key in params) {
+      if (params[key] != null && params[key] !== '') {
+        httpParams = httpParams.set(key, params[key]);
+      }
+    }
+    return this.http.get<any>(`${this.baseUrl}api/services/app/PmContract/GetAllPmcontractPortal`,
+      { params: httpParams });
   }
-  getDonations(): Observable<any>{
-    return this.http.get<any>(`${this.baseUrl}WebsiteQuickDonation/GetAllWebsiteQuickDonation`)
-  }
-
-  getEmergencys(): Observable<any>{
-    return this.http.get<any>(`${this.baseUrl}TmProjectCampain/GetWebsiteTmProjectCampain `)
-  }
-
-  getSingleEmergency(id:any): Observable<any>{
-    return this.http.get<any>(`${this.baseUrl}TmProjectCampain/GetWebsiteTmProjectCampain?Id=${id}`)
-  }
-
-  getAllWebsiteStatistic(): Observable<any>{
-    return this.http.get<any>(`${this.baseUrl}WebsiteStatistics/GetAllWebsiteStatistic?IsActive=true&StatisticsTypeLkpId=12442`)
-  }
-
-  getAllHalls(): Observable<any>{
-    return this.http.get<any>(`${this.baseUrl}WebsiteHallsCouncils/GetAllWebsiteHallsCouncils?HallsCouncilsTypeLkpId=12450`)
-  }
-
-  getAllCouncils(): Observable<any>{
-    return this.http.get<any>(`${this.baseUrl}WebsiteHallsCouncils/GetAllWebsiteHallsCouncils?HallsCouncilsTypeLkpId=12451`)
-  }
-
-  getSingleHallCouncils(id:any): Observable<any>{
-    return this.http.get<any>(`${this.baseUrl}WebsiteHallsCouncils/GetDetailForWebsiteById?Id=${id}`)
-  }
-
-  getAllTmAutoCouponsForWebsite(): Observable<any>{
-    return this.http.get<any>(`${this.baseUrl}TmAutoCoupons/GetAllTmAutoCouponsForWebsite`)
-  }
-
-  getAllPartnersForWebsite():Observable<any>{
-    return this.http.get<any>(`${this.baseUrl}WebsiteOurPartners/GetAllWebsiteOurPartnersForWebsite `)
-  }
+ 
 
 }

@@ -1,1 +1,22 @@
 
+.breadcrumb-box {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #6c757d;
+  
+    .breadcrumb-item + .breadcrumb-item::before {
+      content: "/";
+      padding: 0 0.5rem;
+      color: #aaa;
+    }
+  
+    a {
+      color: #007bff;
+      text-decoration: none;
+  
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+  

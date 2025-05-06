@@ -47,7 +47,7 @@ export class LoginComponent {
         next: (res:any) => {
           this._SpinnerService.hideSpinner();
           localStorage.setItem("token", res.result?.accessToken)
-
+          localStorage.setItem("userData",JSON.stringify({name: res.result?.userName,userId: res.result?.userId}))
           this.messageService.add({
             severity: 'success',
             summary: 'Success',
