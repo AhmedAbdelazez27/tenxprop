@@ -1,0 +1,227 @@
+<div class="breadcrumb-box">
+    <a (click)="router.navigate(['/Main/Home'])" style="cursor: pointer;">Home</a> / <span>My Payments</span>
+</div>
+
+<div class="bg-white round-20 p-3">
+    <div class="d-flex gap-2 align-items-center mb-3">
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+            <path d="M24.6667 15C24.3647 14.4763 23.9261 14.0445 23.3976 13.7509C22.8692 13.4573 22.2708 13.313 21.6667 13.3333H18.3333C17.4493 13.3333 16.6014 13.6845 15.9763 14.3096C15.3512 14.9348 15 15.7826 15 16.6667C15 17.5507 15.3512 18.3986 15.9763 19.0237C16.6014 19.6488 17.4493 20 18.3333 20H21.6667C22.5507 20 23.3986 20.3512 24.0237 20.9763C24.6488 21.6014 25 22.4493 25 23.3333C25 24.2174 24.6488 25.0652 24.0237 25.6904C23.3986 26.3155 22.5507 26.6667 21.6667 26.6667H18.3333C17.7292 26.687 17.1308 26.5427 16.6024 26.2491C16.0739 25.9555 15.6353 25.5237 15.3333 25M20 11.6667V28.3333M5 20C5 21.9698 5.38799 23.9204 6.14181 25.7403C6.89563 27.5601 8.00052 29.2137 9.3934 30.6066C10.7863 31.9995 12.4399 33.1044 14.2597 33.8582C16.0796 34.612 18.0302 35 20 35C21.9698 35 23.9204 34.612 25.7403 33.8582C27.5601 33.1044 29.2137 31.9995 30.6066 30.6066C31.9995 29.2137 33.1044 27.5601 33.8582 25.7403C34.612 23.9204 35 21.9698 35 20C35 18.0302 34.612 16.0796 33.8582 14.2597C33.1044 12.4399 31.9995 10.7863 30.6066 9.3934C29.2137 8.00052 27.5601 6.89563 25.7403 6.14181C23.9204 5.38799 21.9698 5 20 5C18.0302 5 16.0796 5.38799 14.2597 6.14181C12.4399 6.89563 10.7863 8.00052 9.3934 9.3934C8.00052 10.7863 6.89563 12.4399 6.14181 14.2597C5.38799 16.0796 5 18.0302 5 20Z" stroke="#4B85B5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <h4 class="main-blue bold">My Payments</h4>
+    </div>
+
+    <!-- <div class="accordion" id="accordionExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    103
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <div class="bg-white round-20 p-3 table-responsive">
+                        <table class="table main-table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Rental amount </th>
+                                    <th scope="col">Due Date</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Payment</th>
+                                    <th scope="col">Request Cheque Delay</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>40,000 AED</td>
+                                    <td>01/04/2025</td>
+                                    <td>
+                                        <div class="status-yellow">
+                                            Pending
+                                        </div>
+                                    </td>
+                                    <td>-</td>
+
+                                    <td>
+                                        <button class="btn btn-action" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
+                                                <path d="M13.0718 21H6.57178C6.04134 21 5.53264 20.7893 5.15756 20.4142C4.78249 20.0391 4.57178 19.5304 4.57178 19V7C4.57178 6.46957 4.78249 5.96086 5.15756 5.58579C5.53264 5.21071 6.04134 5 6.57178 5H18.5718C19.1022 5 19.6109 5.21071 19.986 5.58579C20.3611 5.96086 20.5718 6.46957 20.5718 7V12M16.5718 3V7M8.57178 3V7M4.57178 11H20.5718M16.5718 19H22.5718M19.5718 16V22" stroke="#4F5663" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                            </svg>
+                                        </button>
+
+                                    </td>
+                                </tr>
+                                <tr class="delayed">
+                                    <td>40,000 AED</td>
+                                    <td>
+                                        01/04/2025
+                                        <br />
+                                        <span class="blue bold">Delayed to 10/05/2025</span>
+                                    </td>
+                                    <td>
+                                        <div class="status-gold">
+                                            Delayed
+                                        </div>
+                                    </td>
+                                    <td>-</td>
+
+                                    <td>
+                                        <button class="btn btn-action" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
+                                                <path d="M13.0718 21H6.57178C6.04134 21 5.53264 20.7893 5.15756 20.4142C4.78249 20.0391 4.57178 19.5304 4.57178 19V7C4.57178 6.46957 4.78249 5.96086 5.15756 5.58579C5.53264 5.21071 6.04134 5 6.57178 5H18.5718C19.1022 5 19.6109 5.21071 19.986 5.58579C20.3611 5.96086 20.5718 6.46957 20.5718 7V12M16.5718 3V7M8.57178 3V7M4.57178 11H20.5718M16.5718 19H22.5718M19.5718 16V22" stroke="#4F5663" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                            </svg>
+                                        </button>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>40,000 AED</td>
+                                    <td>01/04/2025</td>
+                                    <td>
+                                        <div class="status-blue">
+                                            Due
+                                        </div>
+                                    </td>
+                                    <td>-</td>
+
+                                    <td>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>40,000 AED</td>
+                                    <td>01/04/2025</td>
+                                    <td>
+                                        <div class="status-green">
+                                            Cleared
+                                        </div>
+                                    </td>
+                                    <td>01/04/2025</td>
+
+                                    <td>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+  
+    <div class="accordion" id="accordionExample"
+    *ngIf="contractsList.length ">
+        <div class="accordion-item" 
+        *ngFor="let contract of contractsList ; let index=index ">
+            <h2 class="accordion-header" id="heading{{index}}">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapseOne'+index" [attr.aria-expanded]="index === 0 ? 'true' : 'false'"
+                [attr.aria-controls]="'collapseOne'+index">
+                    {{4444}}
+                </button>
+            </h2>
+            <div [id]="'collapseOne'+index" class="accordion-collapse collapse " [ngClass]="{ 'show': index === 0 }" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <div class="bg-white round-20 p-3 table-responsive">
+                      <table class="table main-table">
+                        <thead>
+                          <tr>
+                            <th scope="col">Rental amount</th>
+                            <th scope="col">Due Date</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Payment</th>
+                            <th scope="col">Request Cheque Delay</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let item of contract.cheques">
+                            <td>{{ item.amount }}</td>
+                            <td>{{ item.dueDate }}</td>
+                            <td>
+                              <div [ngClass]="getStatusClass(item.status)">
+                                {{ item.status }}
+                              </div>
+                            </td>
+                            <td>{{ item.paymentMethod || '-' }}</td>
+                            <td>
+                              <button class="btn btn-action" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
+                                      <path d="M13.0718 21H6.57178C6.04134 21 5.53264 20.7893 5.15756 20.4142C4.78249 20.0391 4.57178 19.5304 4.57178 19V7C4.57178 6.46957 4.78249 5.96086 5.15756 5.58579C5.53264 5.21071 6.04134 5 6.57178 5H18.5718C19.1022 5 19.6109 5.21071 19.986 5.58579C20.3611 5.96086 20.5718 6.46957 20.5718 7V12M16.5718 3V7M8.57178 3V7M4.57178 11H20.5718M16.5718 19H22.5718M19.5718 16V22" stroke="#4F5663" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                  </svg>
+                              </button>
+      
+                          </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+            </div>
+        </div>
+    </div> 
+      
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 main-blue" id="exampleModalLabel">Request Cheque Delay</h1>
+                <button type="button" class="btn-close-modal" data-bs-dismiss="modal" aria-label="Close">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M10 10L14 14M14 10L10 14M12 3C19.2 3 21 4.8 21 12C21 19.2 19.2 21 12 21C4.8 21 3 19.2 3 12C3 4.8 4.8 3 12 3Z" stroke="#4F5663" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row mb-3">
+                    <div class="col-lg-4 mb-3">
+                        <p class="bold main-blue">Unit</p>
+                        <p>103</p>
+                    </div>
+                    <div class="col-lg-4 mb-3">
+                        <p class="bold main-blue">Cheque</p>
+                        <p>5871-215688-2145</p>
+                    </div>
+                    <div class="col-lg-4 mb-3">
+                        <p class="bold main-blue">Due Date</p>
+                        <p>31/03/2026</p>
+                    </div>
+
+                </div>
+
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Proposed Date</label>
+                    <input type="date" class="form-control input" id="exampleFormControlInput1" placeholder="">
+                </div>
+
+                <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">Reason</label>
+                    <textarea class="form-control input" id="exampleFormControlTextarea1" rows="3"></textarea>
+                </div>
+
+                <div class="flex items-center justify-center w-full upload mb-3">
+                    <label for="dropzone-file" class="form-label">Upload documents (optional) </label>
+                    <label for="dropzone-file" class="flex flex-col items-center justify-center w-full upload-label">
+                        <span class="flex flex-col items-center justify-center ">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
+                                <path d="M7.50044 18C6.25272 18 5.0561 17.5259 4.17383 16.682C3.29155 15.8381 2.7959 14.6935 2.7959 13.5C2.7959 12.3065 3.29155 11.1619 4.17383 10.318C5.0561 9.47412 6.25272 9.00001 7.50044 9.00001C7.79513 7.68719 8.65721 6.5335 9.89703 5.79273C10.5109 5.42594 11.1991 5.17156 11.9222 5.04412C12.6453 4.91669 13.3893 4.91869 14.1116 5.05001C14.8338 5.18133 15.5203 5.43941 16.1317 5.80949C16.7432 6.17958 17.2677 6.65443 17.6752 7.20694C18.0828 7.75945 18.3654 8.37879 18.507 9.02961C18.6486 9.68043 18.6464 10.35 18.5004 11H19.5004C20.4287 11 21.3189 11.3688 21.9753 12.0251C22.6317 12.6815 23.0004 13.5718 23.0004 14.5C23.0004 15.4283 22.6317 16.3185 21.9753 16.9749C21.3189 17.6313 20.4287 18 19.5004 18H18.5004M9.50046 15L12.5005 12M12.5005 12L15.5005 15M12.5005 12V21" stroke="#D6C4AC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                            <span class="mt-2 secondary-grey">Drag & Drop or <a href="#">Open File</a></span>
+                        </span>
+                        <input id="dropzone-file" type="file" class="hidden">
+                    </label>
+                </div>
+
+                <div class="d-flex gap-2 justify-content-center">
+                    <button class="btn btn-lg-red" data-bs-dismiss="modal">Cancel</button>
+                    <button class="btn btn-lg-blue">Submit</button>
+                </div>
+
+            </div>
+           
+        </div>
+    </div>
+</div>
