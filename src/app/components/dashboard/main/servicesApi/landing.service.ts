@@ -32,6 +32,26 @@ export class LandingService {
     return this.http.get<any>(`${this.baseUrl}api/services/app/PmContract/GetAllPmPaymentsPortal`,
       { params: httpParams });
   }
+  getservices(params:any): Observable<any> {
+    let httpParams = new HttpParams();
+    for (const key in params) {
+      if (params[key] != null && params[key] !== '') {
+        httpParams = httpParams.set(key, params[key]);
+      }
+    }
+    return this.http.get<any>(`${this.baseUrl}api/services/app/JobOrder/GetAllFmMaintRequisitionsHdrPortal`,
+      { params: httpParams });
+  }
  
+  GetAllPmLocalservicePortal(params:any): Observable<any> {
+    let httpParams = new HttpParams();
+    for (const key in params) {
+      if (params[key] != null && params[key] !== '') {
+        httpParams = httpParams.set(key, params[key]);
+      }
+    }
+    return this.http.get<any>(`${this.baseUrl}api/services/app/PmContract/GetAllPmLocalservicePortal`,
+      { params: httpParams });
+  }
 
 }
