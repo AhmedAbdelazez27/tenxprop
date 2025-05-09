@@ -20,7 +20,7 @@ import { MessageService } from 'primeng/api';
 export class ServicesComponent implements OnInit {
   currentLang: string = 'en';
   serviceList: any[] = [];
-  feedbackText: string = '';
+  feedback: string = '';
 
   showPopup: boolean = false;
   selectedItem: any = null;
@@ -34,6 +34,8 @@ export class ServicesComponent implements OnInit {
     private router: Router,
     private translate: TranslateService,
     private landingService: LandingService,
+    private messageService: MessageService,
+
     @Inject(WINDOW) private _window: Window
   ) {
     this.currentLang = this.translate.currentLang || this.translate.defaultLang;
@@ -46,10 +48,10 @@ export class ServicesComponent implements OnInit {
   getservices(): void {
     this._SpinnerService.showSpinner();
     const lang = localStorage.getItem('language') || 'en';
-    const hostname = this._window.location.hostname;
-    const tenancyName = hostname.includes('localhost') ? 'compassint' : hostname.split('.')[0];
-
-    this.landingService.getservices({ tenancyName, lang }).subscribe({
+    // const hostname = this._window.location.hostname;
+    // const tenancyName = hostname.includes('localhost') ? 'compassint' : hostname.split('.')[0];
+    const id = 46;
+    this.landingService.getservices({ id, lang }).subscribe({
       next: (res) => {
         this.serviceList = res.result;
       },
@@ -75,9 +77,9 @@ export class ServicesComponent implements OnInit {
   openPopup(item: any): void {
     this.selectedItem = item;
     this.showPopup = true;
-    this.rating = 0;
+    this.rating = item.rating || 0;
     this.hoveredRating = 0;
-    this.feedbackText = '';
+    this.feedback = item.feedback || '';
   }
 
   closePopup(): void {
@@ -96,13 +98,31 @@ export class ServicesComponent implements OnInit {
   }
   submitFeedback(): void {
     const feedbackPayload = {
-      unitId: this.selectedItem?.unitId,
-      rating: this.rating,
-      comments: this.feedbackText
+      id: this.selectedItem?.id,
+      feedback: this.feedback,
+      rating: this.rating
     };
-
+  
+    this.landingService.updateRequisition(feedbackPayload).subscribe({
+      next: (response) => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Requisition updated successfully!',
+        });
+        // this.router.navigate(['/Main/Services']);
+      },
+      error: (error) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Request Failed',
+          detail: error?.error?.message || 'Could not submit request',
+        });
+      }
+    });
+  
     console.log('Submitting Feedback:', feedbackPayload);
-
     this.closePopup();
   }
+  
 }

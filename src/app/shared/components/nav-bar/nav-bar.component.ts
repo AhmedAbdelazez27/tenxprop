@@ -22,37 +22,20 @@ import { ToastModule } from 'primeng/toast';
 })
 export class NavBarComponent implements OnInit{
 
-
-  routes = [
-    { path: '/Main/Home', name: 'Home' },
-    { path: '/Main/Services', name: 'Services' },
-    { path: '/Main/Emergency', name: 'Emergency' },
-  ];
-  cartCount: number=0;
   currentLanguage: string;
-  userName: string | null = null; 
+  userData:any;
   constructor(private router: Router,private cartService: CartService,private messageService : MessageService,private translationService: TranslationService) {
     this.currentLanguage = localStorage.getItem('language') || 'en';
-    this.cartCount = JSON.parse(localStorage.getItem('items')||'[]')?.length ;
+    let data = localStorage.getItem("userData")
+    this.userData=data? JSON.parse(data):{};
   }
   ngOnInit(): void {
-    this.cartService.cartCount$.subscribe((count) => {
-      console.log(count);
-      this.cartCount = count;
-    });
-    this.cartService.userData$.subscribe((userData) => {
-      if(userData) {
-        this.userName = userData.userName;
-      } else {
-        this.userName = null;
-      }
-    });
     
   }
   logout() {
     localStorage.removeItem('userData');  
-    sessionStorage.removeItem('userData'); 
-    this.cartService.setUserName(undefined);
+    localStorage.removeItem('token'); 
+    this.router.navigate(['/Auth/Login'])
   }
   navigate(route: any): void {
     this.router.navigate([route]);

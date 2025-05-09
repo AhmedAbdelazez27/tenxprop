@@ -79,15 +79,23 @@ getComplaintTypes(pageSize: number = 20, pageNumber: number = 1): Observable<any
   const url = `${this.baseUrl}api/services/app/FndLookupValues/GetFndLookupValuesSelect2?type=FmMaintRequisitionsHdrComplaintType&pageSize=${pageSize}&pageNumber=${pageNumber}&lang=en-US`;
   return this.http.get<any>(url);
 }
-  
+uploadFile(file: File): Observable<any> {
+  const formData = new FormData();
+  formData.append('file', file); 
+  const url = `${this.baseUrl}api/services/app/JobOrder/UploadAttach`;
+  return this.http.post<any>(url, formData);
+}
 getloadUnits(propertyId: number, pageSize: number = 20, pageNumber: number = 1): Observable<any> {
   const url = `${this.baseUrl}api/services/app/JobOrder/GetPmPropertiesUnitsPortal?propertyId=${propertyId}&pageSize=${pageSize}&pageNumber=${pageNumber}&lang=en-US`;
   return this.http.get<any>(url);
 }
-
- 
-  GetPmProperties(pageSize: number = 20, pageNumber: number = 1): Observable<any> {
+GetPmProperties(pageSize: number = 20, pageNumber: number = 1): Observable<any> {
     const url = `${this.baseUrl}api/services/app/PmProperties/GetPmPropertiesNumberSelect2?pageSize=20&pageNumber=1&lang=en-US`;
     return this.http.get<any>(url);
+  }
+
+  updateRequisition(payload: any): Observable<any> {
+    const url = `${this.baseUrl}api/services/app/JobOrder/UpdatePortal`;
+    return this.http.post<any>(url, payload);
   }
 }

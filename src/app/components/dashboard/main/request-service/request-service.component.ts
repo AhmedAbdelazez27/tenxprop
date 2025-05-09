@@ -25,7 +25,7 @@ export class RequestServiceComponent implements OnInit {
   isImage: boolean = false;
   isVideo: boolean = false;
   previewUrl: string | ArrayBuffer | null = null;
-
+  uploadedFilePath: string | null = null;
   formData = {
     UnitTypeLkpId: '103',
     ComplaintTypeLkpId: '',
@@ -107,28 +107,30 @@ export class RequestServiceComponent implements OnInit {
     });
   }
 
-  onFileSelected(event: any): void {
-    const file = event.target.files[0];
-    if (file) {
-      this.formData.FilePath = file;
+ 
+  onFileSelected(event: Event): void {
+    const fileInput = event.target as HTMLInputElement;
+    const file = fileInput.files?.[0];
+    if (!file) return;
 
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.previewUrl = reader.result;
-        this.isImage = file.type.startsWith('image');
-        this.isVideo = file.type.startsWith('video');
-      };
-      reader.readAsDataURL(file);
-    }
+    this.landingService.uploadFile(file).subscribe({
+      next: (response) => {
+        const filePath = response.result;
+        if (filePath) {
+          this.uploadedFilePath = filePath;
+        } else {
+          console.warn('Upload succeeded but file path not found in response.');
+        }
+      },
+      error: (err) => {
+        console.error('❌ Upload failed:', err);
+      }
+    });
   }
-
   submitForm() {
     const hostname = this._window.location.hostname;
     const tenancyName = hostname.includes('localhost') ? 'compassint' : hostname.split('.')[0];
-  
-    // Format date from "YYYY-MM-DD" to "DD/MM/YYYY"
     const formattedDate = this.formatDateToDDMMYYYY(this.formData.RequisitionDate);
-  
     const jsonPayload = {
       UnitTypeLkpId: this.formData.UnitTypeLkpId || '',
       ComplaintTypeLkpId: this.formData.ComplaintTypeLkpId,
@@ -138,6 +140,7 @@ export class RequestServiceComponent implements OnInit {
       TenancyName: tenancyName,
       PmPropertiesId: this.formData.PmPropertiesId,
       UnitId: this.formData.UnitId,
+      FilePath: this.uploadedFilePath || '' 
     };
   
     this.landingService.createRequisition(jsonPayload).subscribe({
@@ -158,8 +161,6 @@ export class RequestServiceComponent implements OnInit {
       }
     });
   }
-  
-  // Helper method to convert "YYYY-MM-DD" to "DD/MM/YYYY"
   formatDateToDDMMYYYY(dateStr: string): string {
     const [year, month, day] = dateStr.split('-');
     return `${day}/${month}/${year}`;
@@ -179,6 +180,8 @@ export class RequestServiceComponent implements OnInit {
     };
     this.units = [];
     this.previewUrl = null;
+    this.router.navigate(['/Main/Services']);
+
   }
 
   routeTo(link: string) {
