@@ -32,6 +32,21 @@ export class LandingService {
     return this.http.get<any>(`${this.baseUrl}api/services/app/PmContract/GetAllPmcontractDataForPortal`,
       { params: httpParams });
   }
+ 
+
+
+  createRequestChequeDelay(requestData: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}api/services/app/RequestCheckDelay/CreateRequestCheckDelay`, requestData);
+  };
+
+  uploadAttachment(file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file, file.name);
+
+    return this.http.post(`${this.baseUrl}api/services/app/RequestCheckDelay/UploadAttach`, formData);
+  };
+
+
   getservices(params:any): Observable<any> {
     let httpParams = new HttpParams();
     for (const key in params) {
@@ -53,16 +68,26 @@ export class LandingService {
     return this.http.get<any>(`${this.baseUrl}api/services/app/PmContract/GetAllPmLocalservicePortal`,
       { params: httpParams });
   }
-
-  createRequestChequeDelay(requestData: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}api/services/app/RequestCheckDelay/CreateRequestCheckDelay`, requestData);
+createRequisition(data: any): Observable<any> {
+  const token = localStorage.getItem('token'); 
+  const headers = {
+    Authorization: `Bearer ${token}`
   };
+  return this.http.post(`${this.baseUrl}api/services/app/JobOrder/CreateService`, data, { headers });
+}
+getComplaintTypes(pageSize: number = 20, pageNumber: number = 1): Observable<any> {
+  const url = `${this.baseUrl}api/services/app/FndLookupValues/GetFndLookupValuesSelect2?type=FmMaintRequisitionsHdrComplaintType&pageSize=${pageSize}&pageNumber=${pageNumber}&lang=en-US`;
+  return this.http.get<any>(url);
+}
+  
+getloadUnits(propertyId: number, pageSize: number = 20, pageNumber: number = 1): Observable<any> {
+  const url = `${this.baseUrl}api/services/app/JobOrder/GetPmPropertiesUnitsPortal?propertyId=${propertyId}&pageSize=${pageSize}&pageNumber=${pageNumber}&lang=en-US`;
+  return this.http.get<any>(url);
+}
 
-  uploadAttachment(file: File): Observable<any> {
-    const formData = new FormData();
-    formData.append('file', file, file.name);
-
-    return this.http.post(`${this.baseUrl}api/services/app/RequestCheckDelay/UploadAttach`, formData);
-  };
-
+ 
+  GetPmProperties(pageSize: number = 20, pageNumber: number = 1): Observable<any> {
+    const url = `${this.baseUrl}api/services/app/PmProperties/GetPmPropertiesNumberSelect2?pageSize=20&pageNumber=1&lang=en-US`;
+    return this.http.get<any>(url);
+  }
 }

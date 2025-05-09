@@ -1,23 +1,94 @@
 <div class="bg-white round-20 p-103">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-      <!-- Breadcrumb Left -->
-      <ol class="breadcrumb breadcrumb-box bg-transparent px-4 mb-0 mt-2">
-        <li class="breadcrumb-item">
-          <a [routerLink]="['/Main/Home']">Home</a>
-        </li>
-        <li class="breadcrumb-item">
-            <a [routerLink]="['/Main/Services']">Services</a>
-          </li>
-          <li class="breadcrumb-item active" aria-current="page">
-            RequestService
-          </li>
-      </ol>
-    </div>
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <ol class="breadcrumb breadcrumb-box bg-transparent px-4 mb-0 mt-2">
+      <li class="breadcrumb-item"><a [routerLink]="['/Main/Home']">Home</a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['/Main/Services']">Services</a></li>
+      <li class="breadcrumb-item active" aria-current="page">RequestService</li>
+    </ol>
+  </div>
 </div>
+
 <div class="bg-white round-20 p-3">
-    <div class="d-flex gap-2 align-items-center mb-3">
-        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
-            <path d="M11.6666 16.6666H16.6666V11.6666L10.8333 5.83328C12.6993 4.94207 14.7958 4.65129 16.8339 5.00099C18.8721 5.35068 20.7517 6.32365 22.214 7.7859C23.6762 9.24816 24.6492 11.1278 24.9989 13.166C25.3486 15.2041 25.0578 17.3006 24.1666 19.1666L34.1666 29.1666C34.8296 29.8297 35.2021 30.7289 35.2021 31.6666C35.2021 32.6043 34.8296 33.5036 34.1666 34.1666C33.5035 34.8297 32.6043 35.2022 31.6666 35.2022C30.7289 35.2022 29.8296 34.8297 29.1666 34.1666L19.1666 24.1666C17.3005 25.0578 15.2041 25.3486 13.1659 24.9989C11.1278 24.6492 9.24813 23.6763 7.78587 22.214C6.32362 20.7517 5.35065 18.8721 5.00096 16.8339C4.65126 14.7958 4.94204 12.6993 5.83325 10.8333L11.6666 16.6666Z" stroke="#4B85B5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-        </svg>
-        <h4 class="main-blue bold">Request Services</h4>
+  <div class="d-flex gap-2 align-items-center mb-3">
+    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 40 40" fill="none">
+      <path d="M11.6666 16.6666H16.6666V11.6666L10.8333 5.83328C12.6993 4.94207 14.7958 4.65129 16.8339 5.00099C18.8721 5.35068 20.7517 6.32365 22.214 7.7859C23.6762 9.24816 24.6492 11.1278 24.9989 13.166C25.3486 15.2041 25.0578 17.3006 24.1666 19.1666L34.1666 29.1666C34.8296 29.8297 35.2021 30.7289 35.2021 31.6666C35.2021 32.6043 34.8296 33.5036 34.1666 34.1666C33.5035 34.8297 32.6043 35.2022 31.6666 35.2022C30.7289 35.2022 29.8296 34.8297 29.1666 34.1666L19.1666 24.1666C17.3005 25.0578 15.2041 25.3486 13.1659 24.9989C11.1278 24.6492 9.24813 23.6763 7.78587 22.214C6.32362 20.7517 5.35065 18.8721 5.00096 16.8339C4.65126 14.7958 4.94204 12.6993 5.83325 10.8333L11.6666 16.6666Z" stroke="#4B85B5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <h4 class="main-blue bold">Request Services</h4>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-4 mb-3">
+      <label class="form-label">Property</label>
+      <select
+        class="form-select input-dark"
+        [(ngModel)]="formData.PmPropertiesId"
+        name="PmPropertiesId"
+        (ngModelChange)="onPropertyChange($event)">
+        <option *ngFor="let property of pmPropertiesList" [ngValue]="property.id">
+          {{ property.text }}
+        </option>
+      </select>
+    </div>
+    
+    <div class="col-lg-4 mb-3">
+      <label class="form-label">Select Unit</label>
+      <select
+        class="form-select input-dark"
+        [(ngModel)]="formData.UnitId"
+        name="UnitId">
+        <option [ngValue]="null" disabled>Select a unit</option>
+        <option *ngFor="let unit of units" [ngValue]="unit.id">
+          {{ unit.text }}
+        </option>
+      </select>
+    </div>
+    
+      
+     
+      
+
+    <div class="col-lg-4 mb-3">
+      <label class="form-label">Select Service</label>
+      <select class="form-select input-dark" [(ngModel)]="formData.ComplaintTypeLkpId" name="ComplaintTypeLkpId">
+        <option value="" disabled selected>Select a service</option>
+        <option *ngFor="let complaint of complaintTypes" [value]="complaint.id">
+          {{ complaint.text }}
+        </option>
+      </select>
+    </div>
+    
+    
+
+    <div class="col-12 mb-3">
+      <label class="form-label">Description</label>
+      <textarea class="form-control input-dark" rows="3" [(ngModel)]="formData.ComplaintDetails"></textarea>
+    </div>
+
+    <div class="col-lg-6 mb-3">
+      <label class="form-label">Preferred Date</label>
+      <input type="date" class="form-control input-dark" [(ngModel)]="formData.RequisitionDate" />
+    </div>
+
+    <div class="col-lg-6 mb-3">
+      <label class="form-label">Preferred Time</label>
+      <input type="time" class="form-control input-dark" [(ngModel)]="formData.RequisitionTime" />
+    </div>
+
+    <div class="col-12 mb-3">
+      <label class="form-label">Upload Photo / Video</label>
+      <input type="file" class="form-control input-dark" (change)="onFileSelected($event)" />
+    
+      <div *ngIf="previewUrl" class="mt-2">
+        <img *ngIf="isImage" [src]="previewUrl" alt="Preview" class="img-thumbnail" style="height: 200px;" />
+        <video *ngIf="isVideo" [src]="previewUrl" controls style="height: 200px;"></video>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex gap-2 justify-content-center">
+    <button class="btn btn-lg-red" (click)="cancelForm()">Cancel</button>
+    <button class="btn btn-lg-blue" (click)="submitForm()">Submit</button>
+  </div>
 </div>
+
+<p-toast></p-toast>

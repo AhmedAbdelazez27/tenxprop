@@ -1,22 +1,42 @@
 
 .breadcrumb-box {
-    font-size: 0.95rem;
-    font-weight: 500;
-    color: #6c757d;
-  
-    .breadcrumb-item + .breadcrumb-item::before {
-      content: "/";
-      padding: 0 0.5rem;
-      color: #aaa;
-    }
-  
-    a {
-      color: #007bff;
-      text-decoration: none;
-  
-      &:hover {
-        text-decoration: underline;
-      }
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #6c757d;
+
+  .breadcrumb-item + .breadcrumb-item::before {
+    content: "/";
+    padding: 0 0.5rem;
+    color: #aaa;
+  }
+
+  a {
+    color: #007bff;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
     }
   }
-  
+}
+.input-dark {
+background-color: #F5F5F5; // Light black
+color: #1c1818;
+border: 1px solid #F5F5F5;
+}
+
+.input-dark::placeholder {
+color: #aaa;
+}
+
+.input-dark:focus {
+background-color: #F5F5F5;
+color: #0f0e0e;
+border-color: #F5F5F5;
+outline: none;
+box-shadow: none;
+}
+.form-select {
+  line-height: 2.5; 
+}
+

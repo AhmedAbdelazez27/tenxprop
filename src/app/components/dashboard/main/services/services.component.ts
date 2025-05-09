@@ -6,14 +6,16 @@ import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { LandingService } from '../servicesApi/landing.service';
 import { WINDOW, WindowProvider } from '../../../../shared/Providers/window-provider.service';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-contract',
   standalone: true,
-  imports: [TranslateModule, CommonModule, FormsModule, RouterModule],
+  imports: [TranslateModule, CommonModule, FormsModule, RouterModule,ToastModule],
   templateUrl: './services.component.html',
   styleUrls: ['./services.component.scss'],
-  providers: [WindowProvider]
+  providers: [WindowProvider,MessageService]
 })
 export class ServicesComponent implements OnInit {
   currentLang: string = 'en';
