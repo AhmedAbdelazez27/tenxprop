@@ -1,0 +1,30 @@
+/* CSS for Invalid Fields */
+.is-invalid {
+    border: 1px solid red !important;
+  }
+  
+  .invalid-feedback {
+    color: red;
+    font-size: 0.875rem;
+  }
+  /* CSS classes for each status */
+.status-renew {
+    background-color: lightblue;
+    color: #007bff;
+  }
+  
+  .status-expired {
+    background-color: lightgray;
+    color: #6c757d;
+  }
+  
+  .status-canceled {
+    background-color: #f8d7da;
+    color: #dc3545;
+  }
+  
+  .status-new {
+    background-color: #d4edda;
+    color: #28a745;
+  }
+  

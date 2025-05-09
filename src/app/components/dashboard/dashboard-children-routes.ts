@@ -1,4 +1,5 @@
 import { ContractComponent } from "./main/contract/contract.component";
+import { DelaychequerequestComponent } from "./main/delaychequerequest/delaychequerequest.component";
 import { LandingComponent } from "./main/landing/landing.component";
 import { LocalserviceComponent } from "./main/localservice/localservice.component";
 import { PaymentComponent } from "./main/payment/payment.component";
@@ -35,6 +36,11 @@ export const dashBoardChildrenRoutes: any[] = [
   {
     path: 'Localservice',
     component: LocalserviceComponent,
+    pathMatch: 'full'
+  },
+  {
+    path: 'Delaychequerequest',
+    component: DelaychequerequestComponent,
     pathMatch: 'full'
   },
   // Errors

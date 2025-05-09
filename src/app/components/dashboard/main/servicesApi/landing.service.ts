@@ -29,7 +29,7 @@ export class LandingService {
         httpParams = httpParams.set(key, params[key]);
       }
     }
-    return this.http.get<any>(`${this.baseUrl}api/services/app/PmContract/GetAllPmPaymentsPortal`,
+    return this.http.get<any>(`${this.baseUrl}api/services/app/PmContract/GetAllPmcontractDataForPortal`,
       { params: httpParams });
   }
   getservices(params:any): Observable<any> {
@@ -53,5 +53,16 @@ export class LandingService {
     return this.http.get<any>(`${this.baseUrl}api/services/app/PmContract/GetAllPmLocalservicePortal`,
       { params: httpParams });
   }
+
+  createRequestChequeDelay(requestData: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}api/services/app/RequestCheckDelay/CreateRequestCheckDelay`, requestData);
+  };
+
+  uploadAttachment(file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file, file.name);
+
+    return this.http.post(`${this.baseUrl}api/services/app/RequestCheckDelay/UploadAttach`, formData);
+  };
 
 }

@@ -17,6 +17,7 @@ export class ContractComponent implements OnInit{
  
   currentLang: string = 'en'; // or 'ar', based on your logic
   contractsList: any[]=[];
+  userId: any;
   constructor(
     private _SpinnerService: SpinnerService,
     private router: Router,
@@ -31,9 +32,23 @@ export class ContractComponent implements OnInit{
   }
 
   
-    getContracts(){
+  getContracts(){
+      let userId = null; // تعيين قيمة افتراضية
+  
+      const userData = localStorage.getItem('userData');
+      
+      if (userData) {
+        try {
+          userId = JSON.parse(userData)?.userId;
+          this.userId =userId;
+        } catch (e) {
+          console.error('Error parsing userData from localStorage', e);
+        }
+      }
+      
+  
       this._SpinnerService.showSpinner();
-      this.landingService.getContracts({TenantId:7,'Params.PmTenantId':23}).subscribe({
+      this.landingService.getPayments({Id:userId}).subscribe({
         next: (res)=>{
           console.log(res);
           this._SpinnerService.hideSpinner();

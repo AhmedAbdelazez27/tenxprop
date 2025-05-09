@@ -51,14 +51,14 @@
 
 
 
-                        <div class="row mb-3">
+                        <div class="row mb-3" *ngFor="let unit of contract?.listPmContractUnitDetails">
                             <h4 class="title-gray mb-2">Unit Details</h4>
                             <div class="col-lg-3 col-md-6 col-sm-6 col-6">
                                 <div class="unit-details">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                         <path d="M9 21V15C9 14.4696 9.21071 13.9609 9.58579 13.5858C9.96086 13.2107 10.4696 13 11 13H13C13.5304 13 14.0391 13.2107 14.4142 13.5858C14.7893 13.9609 15 14.4696 15 15V21M5 12H3L12 3L21 12H19V19C19 19.5304 18.7893 20.0391 18.4142 20.4142C18.0391 20.7893 17.5304 21 17 21H7C6.46957 21 5.96086 20.7893 5.58579 20.4142C5.21071 20.0391 5 19.5304 5 19V12Z" stroke="#D6C4AC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                     </svg>
-                                    Apartment
+                                    {{unit?.unitType}}
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-6 col-sm-6 col-6">
@@ -66,23 +66,23 @@
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                         <path d="M3 7V18M3 14H21M21 18V10C21 9.46957 20.7893 8.96086 20.4142 8.58579C20.0391 8.21071 19.5304 8 19 8H11V14M6 10C6 10.2652 6.10536 10.5196 6.29289 10.7071C6.48043 10.8946 6.73478 11 7 11C7.26522 11 7.51957 10.8946 7.70711 10.7071C7.89464 10.5196 8 10.2652 8 10C8 9.73478 7.89464 9.48043 7.70711 9.29289C7.51957 9.10536 7.26522 9 7 9C6.73478 9 6.48043 9.10536 6.29289 9.29289C6.10536 9.48043 6 9.73478 6 10Z" stroke="#D6C4AC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                     </svg>
-                                    3 Bedrooms
+                                    {{unit?.noOfRooms}}
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-md-6 col-sm-6 col-6">
+                            <!-- <div class="col-lg-3 col-md-6 col-sm-6 col-6">
                                 <div class="unit-details">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                         <path d="M6 12V5C6 4.46957 6.21071 3.96086 6.58579 3.58579C6.96086 3.21071 7.46957 3 8 3H11V5.25M4 21L5 19.5M20 21L19 19.5M4 12H20C20.2652 12 20.5196 12.1054 20.7071 12.2929C20.8946 12.4804 21 12.7348 21 13V16C21 17.0609 20.5786 18.0783 19.8284 18.8284C19.0783 19.5786 18.0609 20 17 20H7C5.93913 20 4.92172 19.5786 4.17157 18.8284C3.42143 18.0783 3 17.0609 3 16V13C3 12.7348 3.10536 12.4804 3.29289 12.2929C3.48043 12.1054 3.73478 12 4 12Z" stroke="#D6C4AC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                     </svg>
                                     1 Bath
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="col-lg-3 col-md-6 col-sm-6 col-6">
                                 <div class="unit-details">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                         <path d="M4 20V6C4 5.46957 4.21071 4.96086 4.58579 4.58579C4.96086 4.21071 5.46957 4 6 4H20M20 8V8.01M20 12V12.01M20 16V16.01M8 20V20.01M12 20V20.01M16 20V20.01M20 20V20.01" stroke="#D6C4AC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                     </svg>
-                                    2760 Sq.ft
+                                    {{unit?.unitSize || '_'}} Sq.ft
                                 </div>
                             </div>
                         </div>
@@ -92,11 +92,11 @@
                             <div class="row">
                                 <div class="col-lg-3 mb-3">
                                     <p class="bold main-blue">Start Date</p>
-                                    <p>{{contract?.contractStartDate}}</p>
+                                    <p>{{contract?.pmContract?.contractStartDate}}</p>
                                 </div>
                                 <div class="col-lg-3 mb-3">
                                     <p class="bold main-blue">End Date </p>
-                                    <p>{{contract?.contractEndDate}}</p>
+                                    <p>{{contract?.pmContract?.contractEndDate}}</p>
                                 </div>
                                 <div class="col-lg-3 mb-3">
                                     <p class="bold main-blue">Payment </p>
@@ -104,7 +104,7 @@
                                 </div>
                                 <div class="col-lg-3 mb-3">
                                     <p class="bold main-blue">Rental amount  </p>
-                                    <p>{{contract?.rentAmount | currency:'AED' }}</p>
+                                    <p>{{contract?.pmContract?.rentAmount | currency:'AED' }}</p>
                                 </div>
                                 <div class="col-lg-3 mb-3">
                                     <p class="bold main-blue">Payment Method </p>
@@ -112,7 +112,7 @@
                                 </div>
                                 <div class="col-lg-3 mb-3">
                                     <p class="bold main-blue">Cheques </p>
-                                    <p>8</p>
+                                    <p>{{contract?.listPmContractPayments?.length}}</p>
                                 </div>
                             </div>
                         </div>
@@ -120,16 +120,7 @@
                         <div class="mb-3 border-bottom">
                             <h4 class="title-gray mb-2">LEGAL DESCRIPTION</h4>
                             <p>
-                                Street Address: [ Lorem Ipsum is simply dummy text of the printing ]<br />
-                                Tax Parcel Information: Lorem Ipsum is simply dummy text of the printing and typesetting industry. <br />
-                                Other Description: Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text
-                            </p>
-                        </div>
-
-                        <div class="mb-3 border-bottom">
-                            <h4 class="title-gray mb-2">PERSONAL PROPERTY</h4>
-                            <p>
-                                I.In addition to the real property described in Section II, the Seller shall include the following personal property: [PERSONAL PROPERTY]The described real property in Section II and personal property in Section III shall be collectively known as the “Property.”
+                                {{contract?.pmContract?.note || '-----'}}
                             </p>
                         </div>
 
@@ -145,25 +136,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>01/01/2026</td>
-                                        <td>40,000 AED</td>
+                                    <tr *ngFor="let cheque of contract?.listPmContractPayments">
+                                        <td>  {{cheque?.paymentDate}} </td>
+                                        <td>  {{cheque?.amount}}  </td>
                                         <td>
                                             <div class="status-yellow">Pending</div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>01/01/2026</td>
-                                        <td>40,000 AED</td>
-                                        <td>
-                                            <div class="status-red">Bounced</div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>01/01/2026</td>
-                                        <td>40,000 AED</td>
-                                        <td>
-                                            <div class="status-green">Cleared</div>
                                         </td>
                                     </tr>
 
@@ -175,7 +152,7 @@
                         <div class=" border-bottom">
                             <h4 class="title-gray mb-2">ADDITIONAL TERMS AND CONDITIONS</h4>
                             <p>
-                                This Agreement together with any attached addendums or disclosures shall supersede any and all other prior understandings and agreements, either oral or in writing, between the Parties with respect to the subject matter hereof and shall constitute the sole and only agreements between the Parties with respect to the said Property. All prior negotiations and agreements between the Parties with respect to the Property hereof are merged into this Agreement. Each Party to this Agreement acknowledges that no representations, inducements, promises, or agreements, orally or otherwise, have been made by any Party or by anyone acting on behalf of any Party, which are not embodied in this Agreement and that any agreement, statement or promise that is not contained in this Agreement shall not be valid or binding or of any force or effect.
+                                {{contract?.pmContract?.condition1 + contract?.pmContract?.condition2 + contract?.pmContract?.condition3 + contract?.pmContract?.condition4 + contract?.pmContract?.condition5}}
                             </p>
                         </div>
 
