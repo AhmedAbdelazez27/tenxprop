@@ -16,7 +16,7 @@
             <h2 class="accordion-header" id="heading{{index}}">
                 <button class="accordion-button" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapseOne'+index" [attr.aria-expanded]="index === 0 ? 'true' : 'false'"
                 [attr.aria-controls]="'collapseOne'+index">
-                    {{contract?.contractNumber}}
+                    {{contract?.pmContract?.contractNumber}}
                 </button>
             </h2>
             <div [id]="'collapseOne'+index" class="accordion-collapse collapse " [ngClass]="{ 'show': index === 0 }" data-bs-parent="#accordionExample">
