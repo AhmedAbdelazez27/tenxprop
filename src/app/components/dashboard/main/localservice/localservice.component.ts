@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { LandingService } from '../servicesApi/landing.service';
 import { Inject } from '@angular/core';
 import { WINDOW, WindowProvider } from '../../../../shared/Providers/window-provider.service';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 
 @Component({
@@ -22,12 +23,15 @@ export class LocalserviceComponent implements OnInit{
   currentLang: string = 'en'; // or 'ar', based on your logic
   localserviceList: any[]=[];
   selectedService: any;
+  safeMapUrl: SafeResourceUrl | null = null;
+
   constructor(
     private _SpinnerService: SpinnerService,
     private router: Router,
     private translate: TranslateService,
     private landingService: LandingService,
-    @Inject(WINDOW) private _window: Window // ✅ FIXED injection
+    @Inject(WINDOW) private _window: Window ,// ✅ FIXED injection
+    private sanitizer: DomSanitizer
 
   ){
     this.currentLang = this.translate.currentLang || this.translate.defaultLang;
@@ -121,26 +125,28 @@ export class LocalserviceComponent implements OnInit{
       }
     };
     showMapModal: boolean = false;
-  
+
     openMapPopup(service: any): void {
       this.selectedService = service;
+      const embedUrl = this.convertToEmbedUrl(service.locationURL);
+      this.safeMapUrl = this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
       this.showMapModal = true;
     }
+    
     closeMapPopup(): void {
       this.showMapModal = false;
+      this.safeMapUrl = null;
+    }
+    convertToEmbedUrl(url: string): string {
+
+      debugger
+      if (url.includes('google.com/maps')) {
+        return url.replace('/maps/', '/maps/embed?');
+      }
+          const encodedAddress = encodeURIComponent(url.trim());
+      return `https://www.google.com/maps?q=${encodedAddress}&output=embed`;
     }
     
-    getStaticMapUrl(location: string): string {
-      const baseUrl = 'https://maps.googleapis.com/maps/api/staticmap';
-      const params = [
-        `center=${encodeURIComponent(location)}`,
-        'zoom=17',
-        'size=600x300',
-        'maptype=roadmap',
-        'markers=color:red|label:S|' + encodeURIComponent(location),
-        'key=YOUR_GOOGLE_API_KEY'
-      ];
-      return `${baseUrl}?${params.join('&')}`;
-    }
+  
     
 }
