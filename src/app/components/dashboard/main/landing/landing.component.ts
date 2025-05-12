@@ -13,15 +13,15 @@ import { forkJoin } from 'rxjs';
 @Component({
   selector: 'app-landing',
   standalone: true,
-  imports: [CommonModule, ToastModule, FormsModule, ReactiveFormsModule,TranslateModule],
+  imports: [CommonModule, ToastModule, FormsModule, ReactiveFormsModule, TranslateModule],
   templateUrl: './landing.component.html',
   styleUrl: './landing.component.scss',
   providers: [MessageService]
 })
 export class LandingComponent implements OnInit {
   currentLang: string;
-  contractsList: any[]=[];
-  userData:any;
+  contractsList: any[] = [];
+  userData: any;
 
   constructor(
     private _SpinnerService: SpinnerService,
@@ -32,29 +32,29 @@ export class LandingComponent implements OnInit {
     private landingService: LandingService
   ) {
     this.currentLang = this.translate.currentLang || this.translate.defaultLang;
-      let data = localStorage.getItem("userData")
-      this.userData=data? JSON.parse(data):{};
+    let data = localStorage.getItem("userData")
+    this.userData = data ? JSON.parse(data) : {};
   }
   ngOnInit(): void {
     this.getContracts();
   }
 
-  routeTo(link:string){
+  routeTo(link: string) {
     this.router.navigate([link]);
   }
-  getContracts(){
+  getContracts() {
     this._SpinnerService.showSpinner();
-    this.landingService.getContracts({TenantId:7,'Params.PmTenantId':23}).subscribe({
-      next: (res)=>{
+    this.landingService.getContracts({ TenantId: 7, 'Params.PmTenantId': 23 }).subscribe({
+      next: (res) => {
         console.log(res);
         this._SpinnerService.hideSpinner();
-        this.contractsList= res.result?.items;
+        this.contractsList = res.result?.items;
       },
-      error: (error)=>{
+      error: (error) => {
         this._SpinnerService.hideSpinner();
 
       },
-      complete: ()=>{
+      complete: () => {
         this._SpinnerService.hideSpinner();
       }
     })
@@ -64,7 +64,7 @@ export class LandingComponent implements OnInit {
     if (!status) {
       return ''; // If status is not available, return empty
     }
-  
+
     // Check the status and return the corresponding class
     switch (status.nameEn) {
       case 'Posted':
@@ -77,6 +77,38 @@ export class LandingComponent implements OnInit {
         return '';
     }
   }
-  
+
+  renewContract(id: any) {
+    let userId = null; // تعيين قيمة افتراضية
+
+    const userData = localStorage.getItem('userData');
+    if (userData) {
+      try {
+        userId = JSON.parse(userData)?.userId;
+      } catch (e) {
+        console.error('Error parsing userData from localStorage', e);
+      }
+    }
+
+    console.log(id);
+    this._SpinnerService.showSpinner();
+    this.landingService.renewContract({ id: id, userId:userId}).subscribe({
+      next: (res)=>{
+        console.log(res);
+        this._SpinnerService.hideSpinner();
+        this.messageService.add({
+           severity: 'success',
+            summary: 'Success',
+            detail: `${res?.result?.reason}`,
+        })
+        
+      },
+      error: (err)=>{
+        console.log(err);
+        this._SpinnerService.hideSpinner();
+        
+      }
+    })
+  }
 
 }

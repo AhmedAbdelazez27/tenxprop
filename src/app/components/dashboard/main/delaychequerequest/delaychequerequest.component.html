@@ -1,12 +1,13 @@
-
-<div class="breadcrumb-box">
+<!-- <div class="breadcrumb-box">
     <a [routerLink]="['/Main/Home']">Home</a> / <span>Request Cheque Delay</span>
 </div>
 
 <div class="bg-white round-20 p-3">
     <div class="d-flex gap-2 align-items-center mb-3">
         <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
-            <path d="M20.8337 35H10.0003C9.11627 35 8.26842 34.6488 7.6433 34.0237C7.01818 33.3986 6.66699 32.5507 6.66699 31.6667V11.6667C6.66699 10.7826 7.01818 9.93477 7.6433 9.30964C8.26842 8.68452 9.11627 8.33333 10.0003 8.33333H30.0003C30.8844 8.33333 31.7322 8.68452 32.3573 9.30964C32.9825 9.93477 33.3337 10.7826 33.3337 11.6667V20M26.667 5V11.6667M13.3337 5V11.6667M6.66699 18.3333H33.3337M26.667 31.6667H36.667M31.667 26.6667V36.6667" stroke="#4B85B5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <path
+                d="M20.8337 35H10.0003C9.11627 35 8.26842 34.6488 7.6433 34.0237C7.01818 33.3986 6.66699 32.5507 6.66699 31.6667V11.6667C6.66699 10.7826 7.01818 9.93477 7.6433 9.30964C8.26842 8.68452 9.11627 8.33333 10.0003 8.33333H30.0003C30.8844 8.33333 31.7322 8.68452 32.3573 9.30964C32.9825 9.93477 33.3337 10.7826 33.3337 11.6667V20M26.667 5V11.6667M13.3337 5V11.6667M6.66699 18.3333H33.3337M26.667 31.6667H36.667M31.667 26.6667V36.6667"
+                stroke="#4B85B5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
         <h4 class="main-blue bold">Request Cheque Delay</h4>
     </div>
@@ -15,26 +16,26 @@
         <div class="col-lg-6">
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Select Unit</label>
-                <select class="form-select input" aria-label="Default select example">
-                    <option selected>103</option>
-                    <option value="1">207</option>
-                    <option value="2">101</option>
+                <select class="form-select input" aria-label="Default select example" (change)="onUnitChange($event)">
+                    <option value="" disabled selected>Please select a contract</option>
+                    <option *ngFor="let contract of contractsList" [value]="contract.id">{{contract.text}}</option>
                 </select>
             </div>
         </div>
         <div class="col-lg-6">
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Select Cheque</label>
-                <select class="form-select input" aria-label="Default select example">
-                    <option selected>01/04/2025</option>
-                    <option value="1">01/04/2025</option>
-                    <option value="2">01/04/2025</option>
+                <select class="form-select input" aria-label="Default select example" [(ngModel)]="selectedCheque"
+                    required>
+                    
+                    <option value="" disabled selected>Please select a cheque</option>
+                    <option *ngFor="let payment of paymentsList" [value]="payment.id">{{ payment.text }}</option>
                 </select>
             </div>
         </div>
         <div class="col-lg-6">
             <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Proposed  Date</label>
+                <label for="exampleFormControlInput1" class="form-label">Proposed Date</label>
                 <input type="date" class="form-control input" id="exampleFormControlInput1" placeholder="">
             </div>
         </div>
@@ -50,7 +51,9 @@
         <label for="dropzone-file" class="flex flex-col items-center justify-center w-full upload-label">
             <span class="flex flex-col items-center justify-center ">
                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
-                    <path d="M7.50044 18C6.25272 18 5.0561 17.5259 4.17383 16.682C3.29155 15.8381 2.7959 14.6935 2.7959 13.5C2.7959 12.3065 3.29155 11.1619 4.17383 10.318C5.0561 9.47412 6.25272 9.00001 7.50044 9.00001C7.79513 7.68719 8.65721 6.5335 9.89703 5.79273C10.5109 5.42594 11.1991 5.17156 11.9222 5.04412C12.6453 4.91669 13.3893 4.91869 14.1116 5.05001C14.8338 5.18133 15.5203 5.43941 16.1317 5.80949C16.7432 6.17958 17.2677 6.65443 17.6752 7.20694C18.0828 7.75945 18.3654 8.37879 18.507 9.02961C18.6486 9.68043 18.6464 10.35 18.5004 11H19.5004C20.4287 11 21.3189 11.3688 21.9753 12.0251C22.6317 12.6815 23.0004 13.5718 23.0004 14.5C23.0004 15.4283 22.6317 16.3185 21.9753 16.9749C21.3189 17.6313 20.4287 18 19.5004 18H18.5004M9.50046 15L12.5005 12M12.5005 12L15.5005 15M12.5005 12V21" stroke="#D6C4AC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <path
+                        d="M7.50044 18C6.25272 18 5.0561 17.5259 4.17383 16.682C3.29155 15.8381 2.7959 14.6935 2.7959 13.5C2.7959 12.3065 3.29155 11.1619 4.17383 10.318C5.0561 9.47412 6.25272 9.00001 7.50044 9.00001C7.79513 7.68719 8.65721 6.5335 9.89703 5.79273C10.5109 5.42594 11.1991 5.17156 11.9222 5.04412C12.6453 4.91669 13.3893 4.91869 14.1116 5.05001C14.8338 5.18133 15.5203 5.43941 16.1317 5.80949C16.7432 6.17958 17.2677 6.65443 17.6752 7.20694C18.0828 7.75945 18.3654 8.37879 18.507 9.02961C18.6486 9.68043 18.6464 10.35 18.5004 11H19.5004C20.4287 11 21.3189 11.3688 21.9753 12.0251C22.6317 12.6815 23.0004 13.5718 23.0004 14.5C23.0004 15.4283 22.6317 16.3185 21.9753 16.9749C21.3189 17.6313 20.4287 18 19.5004 18H18.5004M9.50046 15L12.5005 12M12.5005 12L15.5005 15M12.5005 12V21"
+                        stroke="#D6C4AC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
                 </svg>
                 <span class="mt-2 secondary-grey">Drag &amp; Drop or <a href="#">Open File</a></span>
             </span>
@@ -65,4 +68,77 @@
 
 
 
+</div> -->
+<div class="breadcrumb-box">
+  <a [routerLink]="['/Main/Home']">Home</a> / <span>Request Cheque Delay</span>
+</div>
+
+<div class="bg-white round-20 p-3">
+  <div class="d-flex gap-2 align-items-center mb-3">
+    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+      <path
+        d="M20.8337 35H10.0003C9.11627 35 8.26842 34.6488 7.6433 34.0237C7.01818 33.3986 6.66699 32.5507 6.66699 31.6667V11.6667C6.66699 10.7826 7.01818 9.93477 7.6433 9.30964C8.26842 8.68452 9.11627 8.33333 10.0003 8.33333H30.0003C30.8844 8.33333 31.7322 8.68452 32.3573 9.30964C32.9825 9.93477 33.3337 10.7826 33.3337 11.6667V20M26.667 5V11.6667M13.3337 5V11.6667M6.66699 18.3333H33.3337M26.667 31.6667H36.667M31.667 26.6667V36.6667"
+        stroke="#4B85B5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+    <h4 class="main-blue bold">Request Cheque Delay</h4>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">Select Unit</label>
+        <select class="form-select input" aria-label="Default select example" (change)="onUnitChange($event)" [(ngModel)]="selectedContract" required [ngClass]="{'is-invalid': selectedContract === null && formSubmitted}">
+          <option value="" disabled selected>Please select a contract</option>
+          <option *ngFor="let contract of contractsList" [value]="contract.id">{{ contract.text }}</option>
+        </select>
+        <div *ngIf="selectedContract === null && formSubmitted" class="invalid-feedback">Please select a contract</div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">Select Cheque</label>
+        <select class="form-select input" aria-label="Default select example" [(ngModel)]="selectedCheque" required [ngClass]="{'is-invalid': selectedCheque === null && formSubmitted}">
+          <option value="" disabled selected>Please select a cheque</option>
+          <option *ngFor="let payment of paymentsList" [value]="payment.id">{{ payment.text }}</option>
+        </select>
+        <div *ngIf="selectedCheque === null && formSubmitted" class="invalid-feedback">Please select a cheque</div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">Proposed Date</label>
+        <input type="date" class="form-control input" id="exampleFormControlInput1" [(ngModel)]="proposedDate" required [ngClass]="{'is-invalid': !proposedDate && formSubmitted}" />
+        <div *ngIf="!proposedDate && formSubmitted" class="invalid-feedback">Please select a proposed date</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="exampleFormControlTextarea1" class="form-label">Reason</label>
+    <textarea class="form-control input" id="exampleFormControlTextarea1" rows="3" [(ngModel)]="reason" required [ngClass]="{'is-invalid': !reason && formSubmitted}"></textarea>
+    <div *ngIf="!reason && formSubmitted" class="invalid-feedback">Please provide a reason</div>
+  </div>
+
+    <div class="flex items-center justify-center w-full upload mb-3">
+        <label for="dropzone-file" class="form-label">Upload documents (optional) </label>
+        <label for="dropzone-file" class="flex flex-col items-center justify-center w-full upload-label">
+            <span class="flex flex-col items-center justify-center ">
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
+                    <path
+                        d="M7.50044 18C6.25272 18 5.0561 17.5259 4.17383 16.682C3.29155 15.8381 2.7959 14.6935 2.7959 13.5C2.7959 12.3065 3.29155 11.1619 4.17383 10.318C5.0561 9.47412 6.25272 9.00001 7.50044 9.00001C7.79513 7.68719 8.65721 6.5335 9.89703 5.79273C10.5109 5.42594 11.1991 5.17156 11.9222 5.04412C12.6453 4.91669 13.3893 4.91869 14.1116 5.05001C14.8338 5.18133 15.5203 5.43941 16.1317 5.80949C16.7432 6.17958 17.2677 6.65443 17.6752 7.20694C18.0828 7.75945 18.3654 8.37879 18.507 9.02961C18.6486 9.68043 18.6464 10.35 18.5004 11H19.5004C20.4287 11 21.3189 11.3688 21.9753 12.0251C22.6317 12.6815 23.0004 13.5718 23.0004 14.5C23.0004 15.4283 22.6317 16.3185 21.9753 16.9749C21.3189 17.6313 20.4287 18 19.5004 18H18.5004M9.50046 15L12.5005 12M12.5005 12L15.5005 15M12.5005 12V21"
+                        stroke="#D6C4AC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+                <span class="mt-2 secondary-grey">Drag &amp; Drop or <a href="#">Open File</a></span>
+            </span>
+            <input id="dropzone-file" type="file" class="hidden" (change)="onFileChange($event)">
+        </label>
+         <div class="upload-result" *ngIf="this.attachmentName">
+                        Uplouded File: {{ attachmentName }}
+                      </div>
+    </div>
+
+  <div class="d-flex gap-2 justify-content-center">
+    <button class="btn btn-lg-red" data-bs-dismiss="modal">Cancel</button>
+    <button class="btn btn-lg-blue" (click)="submitForm()">Submit</button>
+  </div>
 </div>
