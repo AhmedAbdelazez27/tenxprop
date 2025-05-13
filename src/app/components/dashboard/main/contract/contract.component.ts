@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { SpinnerService } from '../../../../shared/services/spinner.service';
-import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { LandingService } from '../servicesApi/landing.service';
 
@@ -14,7 +14,7 @@ import { LandingService } from '../servicesApi/landing.service';
   styleUrl: './contract.component.scss'
 })
 export class ContractComponent implements OnInit{
- 
+  currentItemCollabsed:any;
   currentLang: string = 'en'; // or 'ar', based on your logic
   contractsList: any[]=[];
   userId: any;
@@ -22,13 +22,16 @@ export class ContractComponent implements OnInit{
     private _SpinnerService: SpinnerService,
     private router: Router,
     private translate: TranslateService,
-    private landingService: LandingService
+    private landingService: LandingService,
+    private route: ActivatedRoute
 
   ){
     this.currentLang = this.translate.currentLang || this.translate.defaultLang;
   }
   ngOnInit(): void {
     this.getContracts();
+              // Capture the query parameters from the URL
+   
   }
 
   
@@ -53,6 +56,19 @@ export class ContractComponent implements OnInit{
           console.log(res);
           this._SpinnerService.hideSpinner();
           this.contractsList= res.result?.items;
+
+          this.route.queryParams.subscribe(params => {
+  // Corrected the typo here from 'currentItemCollabsed' to 'currentItemCollapsed'
+  this.currentItemCollabsed = params['currentItemCollapsed']; 
+  if (this.currentItemCollabsed) {
+    console.log("details");
+  } else {
+    this.currentItemCollabsed = this.contractsList[0]?.id;
+  }
+  console.log("this.currentItemCollabsed", this.currentItemCollabsed);
+});
+
+          
         },
         error: (error)=>{
           this._SpinnerService.hideSpinner();

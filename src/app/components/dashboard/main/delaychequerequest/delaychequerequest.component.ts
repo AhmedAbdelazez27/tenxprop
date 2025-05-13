@@ -86,8 +86,8 @@ export class DelaychequerequestComponent implements OnInit {
       return;
     }
     let requestBody = {
-      PmContractId: this.selectedContract,
-      ArPdcInterfaceId: this.selectedCheque,
+      PmContractId: +this.selectedContract,
+      ArPdcInterfaceId: +this.selectedCheque,
       proposalDate: new Date(this.proposedDate).toISOString(),
       reason: this.reason,
       attachment: '',
@@ -126,6 +126,9 @@ export class DelaychequerequestComponent implements OnInit {
           summary: 'Success',
           detail: 'Cheque delay request created successfully',
         });
+        setTimeout(() => {
+          this.router.navigate(['/Main/Home'])
+        }, 400);
       },
       error: (error) => {
         this._SpinnerService.hideSpinner();

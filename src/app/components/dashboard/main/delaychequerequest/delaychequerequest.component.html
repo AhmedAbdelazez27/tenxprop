@@ -86,7 +86,7 @@
   <div class="row">
     <div class="col-lg-6">
       <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">Select Unit</label>
+        <label for="exampleFormControlInput1" class="form-label">Select Contract</label>
         <select class="form-select input" aria-label="Default select example" (change)="onUnitChange($event)" [(ngModel)]="selectedContract" required [ngClass]="{'is-invalid': selectedContract === null && formSubmitted}">
           <option value="" disabled selected>Please select a contract</option>
           <option *ngFor="let contract of contractsList" [value]="contract.id">{{ contract.text }}</option>

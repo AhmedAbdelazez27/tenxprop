@@ -254,6 +254,22 @@ body {
   letter-spacing: -0.1px;
   width: max-content;
 }
+.status-renew {
+  display: flex;
+  padding: 4px 8px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 5px;
+  background: var(--Color-15, #E0D8C6);
+  font-size: 14px;
+  color: var(--Color-19, #3D3D3D);
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px; /* 142.857% */
+  letter-spacing: -0.1px;
+  width: max-content;
+}
 
 .btn-action{
   padding:0 8px;

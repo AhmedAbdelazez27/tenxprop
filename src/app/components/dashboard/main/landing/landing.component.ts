@@ -19,6 +19,7 @@ import { forkJoin } from 'rxjs';
   providers: [MessageService]
 })
 export class LandingComponent implements OnInit {
+
   currentLang: string;
   contractsList: any[] = [];
   userData: any;
@@ -43,8 +44,21 @@ export class LandingComponent implements OnInit {
     this.router.navigate([link]);
   }
   getContracts() {
+    let userId = null; // تعيين قيمة افتراضية
+
+    const userData = localStorage.getItem('userData');
+
+    if (userData) {
+      try {
+        userId = JSON.parse(userData)?.userId;
+      } catch (e) {
+        console.error('Error parsing userData from localStorage', e);
+      }
+    }
+
+
     this._SpinnerService.showSpinner();
-    this.landingService.getContracts({ TenantId: 7, 'Params.PmTenantId': 23 }).subscribe({
+    this.landingService.getPayments({ Id: userId }).subscribe({
       next: (res) => {
         console.log(res);
         this._SpinnerService.hideSpinner();
@@ -61,14 +75,18 @@ export class LandingComponent implements OnInit {
   };
 
   getStatusClass(status: any): string {
+    console.log("status = ", status);
+
     if (!status) {
       return ''; // If status is not available, return empty
     }
 
     // Check the status and return the corresponding class
-    switch (status.nameEn) {
+    switch (status) {
       case 'Posted':
         return 'status-green';
+      case 'Renew':
+        return 'status-renew';
       case 'New':
         return 'status-yellow';
       case 'Canceled':
@@ -92,23 +110,27 @@ export class LandingComponent implements OnInit {
 
     console.log(id);
     this._SpinnerService.showSpinner();
-    this.landingService.renewContract({ id: id, userId:userId}).subscribe({
-      next: (res)=>{
+    this.landingService.renewContract({ id: id, userId: userId }).subscribe({
+      next: (res) => {
         console.log(res);
         this._SpinnerService.hideSpinner();
         this.messageService.add({
-           severity: 'success',
-            summary: 'Success',
-            detail: `${res?.result?.reason}`,
+          severity: 'success',
+          summary: 'Success',
+          detail: `${res?.result?.reason}`,
         })
-        
+        this.getContracts();
       },
-      error: (err)=>{
+      error: (err) => {
         console.log(err);
         this._SpinnerService.hideSpinner();
-        
+
       }
     })
+  };
+
+  routeToDetails(arg0: any) {
+    this.router.navigate(['/Main/Contract'], { queryParams: { currentItemCollapsed: arg0 } });
   }
 
 }
