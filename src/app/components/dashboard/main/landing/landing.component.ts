@@ -133,7 +133,8 @@ export class LandingComponent implements OnInit {
     }
   }
 
-  renewContract(id: any) {
+  renewContract(event:Event,id: any) {
+    event.stopPropagation();
     let userId = null; // تعيين قيمة افتراضية
 
     const userData = localStorage.getItem('userData');

@@ -26,6 +26,7 @@
                       <table class="table main-table">
                         <thead>
                           <tr>
+                            <th scope="col">Cheque Number</th>
                             <th scope="col">Rental amount</th>
                             <th scope="col">Due Date</th>
                             <th scope="col">Status</th>
@@ -53,14 +54,15 @@
                           </td>
                           </tr> -->
                           <tr *ngFor="let payment of contract?.listPmContractPayments">
-                            <td>{{ payment.amount | currency: 'AED' }}</td>
-                            <td>{{ payment.paymentDate }}</td>
+                            <td>{{ payment?.checkNumber}}</td>
+                            <td>{{ payment?.amount | currency: 'AED' }}</td>
+                            <td>{{ payment?.paymentDate }}</td>
                             <td>
                               <div [ngClass]="getStatusClass(payment?.paymentStatus)">
                                 {{ payment?.paymentStatus }}
                               </div>
                             </td>
-                            <td>{{ payment.paymentTypeLkpName || '-' }}</td>
+                            <td>{{ payment?.paymentTypeLkpName || '-' }}</td>
                             <td>
                               <button class="btn btn-action" data-bs-toggle="modal" (click)="setPayment(payment)" data-bs-target="#exampleModal">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">

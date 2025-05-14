@@ -46,15 +46,23 @@ export class LoginComponent {
       this._AuthService.login(payload).subscribe({
         next: (res:any) => {
           this._SpinnerService.hideSpinner();
-          localStorage.setItem("token", res.result?.accessToken)
-          localStorage.setItem("userData",JSON.stringify({name: res.result?.userName,userId: res.result?.userId}))
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Success',
-            detail: 'Login successful!',
+          if (res.result?.status == 200) {
+            localStorage.setItem("token", res.result?.accessToken)
+            localStorage.setItem("userData",JSON.stringify({name: res.result?.userName,userId: res.result?.userId}))
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Success',
+              detail: 'Login successful!',
+            });
+    
+            this.router.navigate(['/Main/']);
+          } else {
+            this.messageService.add({
+            severity: 'error',
+            summary: 'Login Failed',
+            detail: 'Invalid credentials',
           });
-  
-          this.router.navigate(['/Main/']);
+          }
         },
         error: (error) => {
           this._SpinnerService.hideSpinner();
