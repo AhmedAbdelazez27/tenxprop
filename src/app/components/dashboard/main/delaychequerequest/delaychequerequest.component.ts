@@ -24,7 +24,8 @@ export class DelaychequerequestComponent implements OnInit {
   reason: string = '';  // Reason for delay
   attachment: File | null = null;  // Optional attachment
   formSubmitted: boolean = false;  // Flag to control validation display
-  attachmentName: string = ""
+  attachmentName: string = "";
+  userData: any;
 
   constructor(
     public router: Router,
@@ -32,14 +33,17 @@ export class DelaychequerequestComponent implements OnInit {
     private translate: TranslateService,
     private landingService: LandingService,
     private messageService: MessageService
-  ) { }
+  ) { 
+     let data = localStorage.getItem("userData")
+    this.userData = data ? JSON.parse(data) : {};
+  }
 
   ngOnInit(): void {
     this.getContract();
   }
 
   getContract() {
-    this.landingService.getContractOptions({ pageSize: 1000, pageNumber: 1 }).subscribe({
+    this.landingService.getContractOptions({ Id:this.userData?.userId,pageSize: 1000, pageNumber: 1 }).subscribe({
       next: (res) => {
         this.contractsList = res?.result?.results;
       },

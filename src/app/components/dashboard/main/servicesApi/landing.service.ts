@@ -65,10 +65,20 @@ export class LandingService {
         httpParams = httpParams.set(key, params[key]);
       }
     }
-    return this.http.get<any>(`${this.baseUrl}api/services/app/PmContract/GetPmContractSelect2`,
+    return this.http.get<any>(`${this.baseUrl}api/services/app/PmContract/GetPmContractForPortalSelect2`,
       { params: httpParams });
   }
 
+    Getnotifications(params: any): Observable<any> {
+    let httpParams = new HttpParams();
+    for (const key in params) {
+      if (params[key] != null && params[key] !== '') {
+        httpParams = httpParams.set(key, params[key]);
+      }
+    }
+    return this.http.get<any>(`${this.baseUrl}api/services/app/User/NotificationsListPortal`,
+      { params: httpParams });
+  }
   getContractChildrenOptions(params: any): Observable<any> {
     let httpParams = new HttpParams();
     for (const key in params) {

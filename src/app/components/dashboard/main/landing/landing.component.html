@@ -128,42 +128,27 @@
 
     <div class="col-xl-4">
         <div class="bg-white round-20 p-3">
-            <h4 class="text-black mb-3 bold">Notifications</h4>
-            <div class="notification-box">
-                <div class="d-flex justify-content-between align-items-center w-100">
-                    <div class="notification-box-item-title">Due Cheques</div>
-                    <div class="notification-days">15 Days</div>
-                </div>
-                <div class="d-flex justify-content-between align-items-center w-100 ">
-                    <div>01/05/2025</div>
-                    <div>40,000 AED</div>
-                    <div>103</div>
-                </div>
+          <h4 class="text-black mb-3 bold">Notifications</h4>
+      
+          <div *ngFor="let notification of notifications" class="notification-box mb-3">
+            <!-- Title and status -->
+            <div class="d-flex justify-content-between align-items-center w-100">
+              <div class="notification-box-item-title">Due Cheques</div>
+              <div class="status-green">{{ notification.message }}</div>
             </div>
-            <div class="notification-box">
-                <div class="d-flex justify-content-between align-items-center w-100">
-                    <div class="notification-box-item-title">Due Cheques</div>
-                    <div class="status-green">Service Done</div>
-                </div>
-                <div class="d-flex justify-content-between align-items-center w-100 ">
-                    <div>Plumbing</div>
-                    <div>17/04/2025</div>
-                    <div>103</div>
-                </div>
+      
+            <!-- Content row -->
+            <div class="d-flex justify-content-between align-items-center w-100">
+              <div>{{ notification.number  }}</div>
+              <div class="notification-date">{{ notification.date }}</div>
+              <div>{{ notification.id }}</div>
+
             </div>
-            <div class="notification-box">
-                <div class="d-flex justify-content-between align-items-center w-100">
-                    <div class="notification-box-item-title">Due Cheques</div>
-                    <div class="status-green">Approved</div>
-                </div>
-                <div class="d-flex justify-content-between align-items-center w-100 ">
-                    <div>2587-125896-1245</div>
-                    <div class="notification-date">01/08/2025</div>
-                    <div>207</div>
-                </div>
-            </div>
+          </div>
         </div>
-    </div>
+      
+      </div>
+      
 
 
 </div>

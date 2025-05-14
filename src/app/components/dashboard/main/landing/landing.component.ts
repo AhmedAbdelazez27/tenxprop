@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { LandingService } from '../servicesApi/landing.service';
 import { SpinnerService } from '../../../../shared/services/spinner.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -8,20 +8,23 @@ import { ToastModule } from 'primeng/toast';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { forkJoin } from 'rxjs';
+import { WINDOW, WindowProvider } from '../../../../shared/Providers/window-provider.service';
+
 
 
 @Component({
   selector: 'app-landing',
   standalone: true,
-  imports: [CommonModule, ToastModule, FormsModule, ReactiveFormsModule, TranslateModule],
+  imports: [CommonModule, ToastModule, FormsModule, ReactiveFormsModule,TranslateModule],
   templateUrl: './landing.component.html',
   styleUrl: './landing.component.scss',
-  providers: [MessageService]
+  providers: [WindowProvider,MessageService]
 })
 export class LandingComponent implements OnInit {
 
   currentLang: string;
-  contractsList: any[] = [];
+  contractsList: any[]=[];
+  notifications: any[] = [];  
   userData: any;
 
   constructor(
@@ -30,7 +33,8 @@ export class LandingComponent implements OnInit {
     private messageService: MessageService,
     private translate: TranslateService,
     private route: ActivatedRoute,
-    private landingService: LandingService
+    private landingService: LandingService,
+    @Inject(WINDOW) private _window: Window
   ) {
     this.currentLang = this.translate.currentLang || this.translate.defaultLang;
     let data = localStorage.getItem("userData")
@@ -38,6 +42,8 @@ export class LandingComponent implements OnInit {
   }
   ngOnInit(): void {
     this.getContracts();
+    this.Getnotifications();
+
   }
 
   routeTo(link: string) {
@@ -73,6 +79,37 @@ export class LandingComponent implements OnInit {
       }
     })
   };
+  Getnotifications() {
+    this._SpinnerService.showSpinner();
+    const hostname = this._window.location.hostname;
+    const tenancyName = hostname.includes('localhost') ? 'compassint' : hostname.split('.')[0];
+
+    this.landingService.Getnotifications({ tenancyName,userId:this.userData.userId}).subscribe({
+      next: (res) => {
+        this._SpinnerService.hideSpinner();
+  
+        if (res.success && res.result) {
+          this.notifications = res.result.map((item: any) => {
+            const props = item.notification.data.properties || {};
+            return {
+               message: props.Message || '',
+               date: props.Date || '',
+               id: props.id || '',
+               number: props.number || ''
+
+              // date: item.notification.creationTime
+            };
+          });
+        }
+      },
+      error: () => {
+        this._SpinnerService.hideSpinner();
+      },
+      complete: () => {
+        this._SpinnerService.hideSpinner();
+      }
+    });
+  }
 
   getStatusClass(status: any): string {
     console.log("status = ", status);
