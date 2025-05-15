@@ -135,4 +135,9 @@ export class LandingService {
     const url = `${this.baseUrl}api/services/app/PmContract/RenewContractForPortal`;
     return this.http.post<any>(url, payload);
   }
+    printPmContract(id: any, lang: string): Observable<any> {
+      debugger;
+    const url = `${this.baseUrl}api/services/app/PmContract/GetContractScreenDataPortal?id=${id}&lang=${lang}`;
+    return this.http.get<any>(url);
+  }
 }

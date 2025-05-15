@@ -108,7 +108,7 @@ export class PaymentComponent implements OnInit{
       proposalDate:new Date(this.proposedDate).toISOString(),
       reason: this.reason,
       attachment: '',
-      pmContractPaymentsId: this.selectedContract?.id, //this.selectedContract.listPmContractPayments[0].id
+      ArPdcInterfaceId: this.selectedContract?.arPdcInterfaceId, //this.selectedContract.listPmContractPayments[0].id
     };
 
     // رفع الملف أولاً

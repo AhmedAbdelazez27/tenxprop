@@ -56,7 +56,7 @@
                           <tr *ngFor="let payment of contract?.listPmContractPayments">
                             <td>{{ payment?.checkNumber}}</td>
                             <td>{{ payment?.amount | currency: 'AED' }}</td>
-                            <td>{{ payment?.paymentDate }}</td>
+                            <td>{{ payment?.paymentMaturityDate }}</td>
                             <td>
                               <div [ngClass]="getStatusClass(payment?.paymentStatus)">
                                 {{ payment?.paymentStatus }}

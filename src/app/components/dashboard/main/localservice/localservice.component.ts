@@ -1,3 +1,5 @@
+
+
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -45,10 +47,11 @@ export class LocalserviceComponent implements OnInit{
 
   GetAllPmLocalservicePortal() {
     this._SpinnerService.showSpinner();
-    const hostname = this._window.location.hostname;
-    const tenancyName = hostname.includes('localhost') ? 'compassint' : hostname.split('.')[0];
-  
-    this.landingService.GetAllPmLocalservicePortal({ tenancyName }).subscribe({
+    // const hostname = this._window.location.hostname;
+    // const tenancyName = hostname.includes('localhost') ? 'compassint' : hostname.split('.')[0];
+    const id = 46 ;
+
+    this.landingService.GetAllPmLocalservicePortal({ id }).subscribe({
       next: (res) => {
         this._SpinnerService.hideSpinner();
         this.localserviceList = res.result;
@@ -147,6 +150,34 @@ export class LocalserviceComponent implements OnInit{
       return `https://www.google.com/maps?q=${encodedAddress}&output=embed`;
     }
     
-  
+    // UpdateRating(localservice: any) {
+    //   this._SpinnerService.showSpinner();
+    //   const updatedData = {
+    //     ...localservice,
+    //     isBookmarked: true
+    //   };
+    
+    //   this.landingService.updateLocalService(updatedData).subscribe({
+    //     next: (response) => {
+    //       console.log('Updated successfully', response);
+    //       this._SpinnerService.hideSpinner();
+    //     },
+    //     error: (err) => {
+    //       console.error('Update failed', err);
+    //       this._SpinnerService.hideSpinner();
+    //     }
+    //   });
+    // }
+    
     
 }
+
+
+
+
+
+
+
+
+
+
