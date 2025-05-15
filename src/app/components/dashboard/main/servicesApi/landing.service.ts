@@ -57,7 +57,16 @@ export class LandingService {
     return this.http.get<any>(`${this.baseUrl}api/services/app/JobOrder/GetAllFmMaintRequisitionsHdrPortal`,
       { params: httpParams });
   }
-
+  Getcheckdelay(params: any): Observable<any> {
+    let httpParams = new HttpParams();
+    for (const key in params) {
+      if (params[key] != null && params[key] !== '') {
+        httpParams = httpParams.set(key, params[key]);
+      }
+    }
+    return this.http.get<any>(`${this.baseUrl}api/services/app/RequestCheckDelay/GetAllRequestCheckDelayForPortal`,
+      { params: httpParams });
+  }
   getContractOptions(params: any): Observable<any> {
     let httpParams = new HttpParams();
     for (const key in params) {
@@ -122,7 +131,7 @@ export class LandingService {
     return this.http.get<any>(url);
   }
   GetPmProperties(pageSize: number = 20, pageNumber: number = 1): Observable<any> {
-    const url = `${this.baseUrl}api/services/app/PmProperties/GetPmPropertiesNumberSelect2?pageSize=20&pageNumber=1&lang=en-US`;
+    const url = `${this.baseUrl}api/services/app/PmProperties/GetPmPropertiesNumberForPortalSelect2?pageSize=20&pageNumber=1&lang=en-US`;
     return this.http.get<any>(url);
   }
 

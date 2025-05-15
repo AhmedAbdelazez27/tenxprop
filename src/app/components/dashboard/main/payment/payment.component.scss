@@ -11,20 +11,83 @@
 .status-renew {
     background-color: lightblue;
     color: #007bff;
+        display: flex;
+    padding: 4px 8px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px; /* 142.857% */
+    letter-spacing: -0.1px;
+    width: max-content;
   }
   
   .status-expired {
     background-color: lightgray;
     color: #6c757d;
+        display: flex;
+    padding: 4px 8px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px; /* 142.857% */
+    letter-spacing: -0.1px;
+    width: max-content;
   }
   
   .status-canceled {
     background-color: #f8d7da;
     color: #dc3545;
+        display: flex;
+    padding: 4px 8px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px; /* 142.857% */
+    letter-spacing: -0.1px;
+    width: max-content;
   }
   
   .status-new {
     background-color: #d4edda;
     color: #28a745;
+        display: flex;
+    padding: 4px 8px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px; /* 142.857% */
+    letter-spacing: -0.1px;
+    width: max-content;
   }
-  
+  .status-received {
+    background-color: #e2f0cb;
+    color: #4caf50;
+        display: flex;
+    padding: 4px 8px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px; /* 142.857% */
+    letter-spacing: -0.1px;
+    width: max-content;
+}

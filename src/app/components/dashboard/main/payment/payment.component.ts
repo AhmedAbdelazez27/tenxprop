@@ -12,27 +12,27 @@ import { ToastModule } from 'primeng/toast';
 @Component({
   selector: 'app-payment',
   standalone: true,
-  imports: [CommonModule,FormsModule,ToastModule],
+  imports: [CommonModule, FormsModule, ToastModule],
   templateUrl: './payment.component.html',
   styleUrl: './payment.component.scss',
   providers: [MessageService]
 })
-export class PaymentComponent implements OnInit{
+export class PaymentComponent implements OnInit {
   contractsList: any[] = [];
   selectedContract: any;  // Selected contract object for request
   reason: string = '';
-  proposedDate:any;  // Proposed date for delay
+  proposedDate: any;  // Proposed date for delay
   attachment: File | null = null;  // Optional attachment
-  attachmentName: string='';
+  attachmentName: string = '';
   userId: any;
 
   constructor(
     public router: Router,
-     private _SpinnerService: SpinnerService,
-        private translate: TranslateService,
-        private landingService: LandingService,
-        private messageService: MessageService,
-  ){
+    private _SpinnerService: SpinnerService,
+    private translate: TranslateService,
+    private landingService: LandingService,
+    private messageService: MessageService,
+  ) {
 
   }
   ngOnInit(): void {
@@ -48,45 +48,47 @@ export class PaymentComponent implements OnInit{
         return 'status-canceled';
       case 'New':
         return 'status-new';
+      case 'received':
+        return 'status-received';
       default:
         return ''; // Default case, no class applied
     }
   }
 
-  getPayments(){
+  getPayments() {
     let userId = null; // تعيين قيمة افتراضية
 
     const userData = localStorage.getItem('userData');
-    
+
     if (userData) {
       try {
         userId = JSON.parse(userData)?.userId;
-        this.userId =userId;
+        this.userId = userId;
       } catch (e) {
         console.error('Error parsing userData from localStorage', e);
       }
     }
-    
+
 
     this._SpinnerService.showSpinner();
-    this.landingService.getPayments({Id:userId}).subscribe({
-      next: (res)=>{
+    this.landingService.getPayments({ Id: userId }).subscribe({
+      next: (res) => {
         console.log(res);
         this._SpinnerService.hideSpinner();
-        this.contractsList= res.result?.items;
+        this.contractsList = res.result?.items;
       },
-      error: (error)=>{
+      error: (error) => {
         this._SpinnerService.hideSpinner();
 
       },
-      complete: ()=>{
+      complete: () => {
         this._SpinnerService.hideSpinner();
       }
     })
   };
 
-  setPayment(item:any){
-    this.selectedContract = {...item}
+  setPayment(item: any) {
+    this.selectedContract = { ...item }
   }
 
   onFileChange(event: Event): void {
@@ -96,7 +98,7 @@ export class PaymentComponent implements OnInit{
       this.attachmentName = input.files[0].name;
     }
   }
-  submitedForm:boolean =false;
+  submitedForm: boolean = false;
   requestChequeDelay() {
     if (!this.proposedDate || !this.reason) {
       this.submitedForm = true;
@@ -105,7 +107,7 @@ export class PaymentComponent implements OnInit{
     }
     let requestBody = {
       pmContractId: this.selectedContract.pmContractId,
-      proposalDate:new Date(this.proposedDate).toISOString(),
+      proposalDate: new Date(this.proposedDate).toLocaleDateString('en-GB'),
       reason: this.reason,
       attachment: '',
       ArPdcInterfaceId: this.selectedContract?.arPdcInterfaceId, //this.selectedContract.listPmContractPayments[0].id
@@ -117,7 +119,7 @@ export class PaymentComponent implements OnInit{
       this.landingService.uploadAttachment(this.attachment).subscribe({
         next: (res) => {
           console.log('Attachment uploaded successfully', res);
-          requestBody.attachment = res?.result ? res?.result :'';
+          requestBody.attachment = res?.result ? res?.result : '';
           // بعد رفع الملف، يمكن إرسال طلب تأجيل الشيك
           this.createRequestChequeDelay(requestBody);
         },
@@ -126,7 +128,7 @@ export class PaymentComponent implements OnInit{
           console.error('Error uploading attachment', error);
         }
       });
-    }else{
+    } else {
       this.createRequestChequeDelay(requestBody);
 
     }

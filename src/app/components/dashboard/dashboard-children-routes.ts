@@ -1,3 +1,4 @@
+import { CheckRequestComponent } from "./main/check-request/check-request.component";
 import { ContractComponent } from "./main/contract/contract.component";
 import { DelaychequerequestComponent } from "./main/delaychequerequest/delaychequerequest.component";
 import { LandingComponent } from "./main/landing/landing.component";
@@ -41,6 +42,11 @@ export const dashBoardChildrenRoutes: any[] = [
   {
     path: 'Delaychequerequest',
     component: DelaychequerequestComponent,
+    pathMatch: 'full'
+  },
+  {
+    path: 'CheckRequest',
+    component: CheckRequestComponent,
     pathMatch: 'full'
   },
   // Errors

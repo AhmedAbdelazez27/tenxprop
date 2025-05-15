@@ -30,7 +30,7 @@
                             <th scope="col">Rental amount</th>
                             <th scope="col">Due Date</th>
                             <th scope="col">Status</th>
-                            <th scope="col">Payment</th>
+                            <!-- <th scope="col">Payment</th> -->
                             <th scope="col">Request Cheque Delay</th>
                           </tr>
                         </thead>
@@ -62,7 +62,7 @@
                                 {{ payment?.paymentStatus }}
                               </div>
                             </td>
-                            <td>{{ payment?.paymentTypeLkpName || '-' }}</td>
+                            <!-- <td>{{ payment?.paymentTypeLkpName || '-' }}</td> -->
                             <td>
                               <button class="btn btn-action" data-bs-toggle="modal" (click)="setPayment(payment)" data-bs-target="#exampleModal">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">

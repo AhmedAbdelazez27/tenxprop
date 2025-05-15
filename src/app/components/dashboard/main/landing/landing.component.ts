@@ -174,7 +174,7 @@ export class LandingComponent implements OnInit {
   }
 
 printPmContractData(id: any) {
-  debugger;
+  // debugger;
       this._SpinnerService.showSpinner();
 
   const lang = localStorage.getItem('lang') || 'en';

@@ -92,7 +92,7 @@ export class DelaychequerequestComponent implements OnInit {
     let requestBody = {
       PmContractId: +this.selectedContract,
       ArPdcInterfaceId: +this.selectedCheque,
-      proposalDate: new Date(this.proposedDate).toISOString(),
+      proposalDate: new Date(this.proposedDate).toLocaleDateString('en-GB'),
       reason: this.reason,
       attachment: '',
       
@@ -119,7 +119,9 @@ export class DelaychequerequestComponent implements OnInit {
     }
 
   }
-
+  cancel() {
+    this.router.navigate(['/Main/CheckRequest']);
+  }
     createRequestChequeDelay(requestBody: any) {
     this.landingService.createRequestChequeDelay(requestBody).subscribe({
       next: (res) => {
