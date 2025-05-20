@@ -54,6 +54,9 @@
                           </td>
                           </tr> -->
                           <tr *ngFor="let payment of contract?.listArPdcInterfaceDetails">
+  
+                          <input type="hidden" [value]="payment?.pmContractId" name="pmContractId" />
+  
                             <td>{{ payment?.checkNumber}}</td>
                             <td>{{ payment?.paymentAmount | currency: 'AED' }}</td>
                             <td>{{ payment?.paymentMaturityDate }}</td>

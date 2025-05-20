@@ -82,12 +82,14 @@ export class LandingComponent implements OnInit {
       }
     })
   };
-  Getnotifications() {
+
+
+ Getnotifications() {
     this._SpinnerService.showSpinner();
     const hostname = this._window.location.hostname;
     const tenancyName = hostname.includes('localhost') ? 'compassint' : hostname.split('.')[0];
 
-    this.landingService.Getnotifications({ tenancyName,userId:this.userData.userId}).subscribe({
+    this.landingService.Getnotifications({ tenancyName,Id:this.userData.userId}).subscribe({
       next: (res) => {
         this._SpinnerService.hideSpinner();
   

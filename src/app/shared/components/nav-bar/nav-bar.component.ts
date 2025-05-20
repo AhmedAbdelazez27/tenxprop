@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, Inject, inject, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 
 // primeng modules
@@ -12,26 +12,55 @@ import { TranslationService } from '../../services/translation.service';
 
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { LandingService } from '../../../components/dashboard/main/servicesApi/landing.service';
+import { WindowProvider,WINDOW } from '../../Providers/window-provider.service';
+
 @Component({
   selector: 'app-nav-bar',
   standalone: true,
   imports: [ CommonModule,CarouselModule,RouterModule,ToastModule,TranslateModule],
-  providers:[AuthService,MessageService],
+  providers:[AuthService,MessageService,WindowProvider],
   templateUrl: './nav-bar.component.html',
-  styleUrls: ['./nav-bar.component.scss']
+  styleUrls: ['./nav-bar.component.scss'],
 })
 export class NavBarComponent implements OnInit{
-
+  logopath: any[]=[];
   currentLanguage: string;
   userData:any;
-  constructor(private router: Router,private cartService: CartService,private messageService : MessageService,private translationService: TranslationService) {
+  constructor(private router: Router,private cartService: CartService,private messageService : MessageService,
+      private landingService: LandingService,
+    @Inject(WINDOW) private _window: Window ,// ✅ FIXED injection
+      
+       private translationService: TranslationService) {
     this.currentLanguage = localStorage.getItem('language') || 'en';
     let data = localStorage.getItem("userData")
     this.userData=data? JSON.parse(data):{};
   }
   ngOnInit(): void {
-    
+        this.getlogo();
   }
+logoPath: string = '';
+
+
+getlogo() {
+let hostname = this._window.location.hostname;
+let tenancyName: string;
+
+if (hostname.includes('localhost')) {
+  tenancyName = 'compassint';
+} else {
+  tenancyName = hostname.split('.')[0];
+}
+  this.landingService.getlogo({ tenancyName }).subscribe({
+    next: (res) => {
+      this.logoPath = res.result?.tenantFilePath || '';
+    },
+    error: (err) => {
+      console.error('Failed to load logo:', err);
+    }
+  });
+}
+
   logout() {
     localStorage.removeItem('userData');  
     localStorage.removeItem('token'); 

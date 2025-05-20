@@ -85,9 +85,10 @@ export class LandingService {
         httpParams = httpParams.set(key, params[key]);
       }
     }
-    return this.http.get<any>(`${this.baseUrl}api/services/app/User/NotificationsListPortal`,
+    return this.http.get<any>(`${this.baseUrl}api/services/app/User/NotificationsListPropPortal`,
       { params: httpParams });
   }
+  
   getContractChildrenOptions(params: any): Observable<any> {
     let httpParams = new HttpParams();
     for (const key in params) {
@@ -147,5 +148,17 @@ export class LandingService {
       debugger;
     const url = `${this.baseUrl}api/services/app/PmContract/GetContractScreenDataPortal?id=${id}&lang=${lang}`;
     return this.http.get<any>(url);
+  }
+
+
+    getlogo(params: any): Observable<any> {
+    let httpParams = new HttpParams();
+    for (const key in params) {
+      if (params[key] != null && params[key] !== '') {
+        httpParams = httpParams.set(key, params[key]);
+      }
+    }
+    return this.http.get<any>(`${this.baseUrl}api/services/app/PmTenants/GetTenantlogo`,
+      { params: httpParams });
   }
 }

@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { SpinnerService } from '../../../../shared/services/spinner.service';
 import { TranslateService } from '@ngx-translate/core';
 import { LandingService } from '../servicesApi/landing.service';
 import { MessageService } from 'primeng/api';
 import { FormsModule } from '@angular/forms';
+import { WINDOW, WindowProvider } from '../../../../shared/Providers/window-provider.service';
 
 @Component({
   selector: 'app-delaychequerequest',
@@ -13,7 +14,7 @@ import { FormsModule } from '@angular/forms';
   imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './delaychequerequest.component.html',
   styleUrl: './delaychequerequest.component.scss',
-  providers: [MessageService]
+  providers: [WindowProvider, MessageService]
 })
 export class DelaychequerequestComponent implements OnInit {
   contractsList: any[] = [];
@@ -32,7 +33,9 @@ export class DelaychequerequestComponent implements OnInit {
     private _SpinnerService: SpinnerService,
     private translate: TranslateService,
     private landingService: LandingService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    @Inject(WINDOW) private _window: Window
+    
   ) { 
      let data = localStorage.getItem("userData")
     this.userData = data ? JSON.parse(data) : {};
@@ -82,8 +85,10 @@ export class DelaychequerequestComponent implements OnInit {
 
   // Handle form submission
   submitForm() {
+    debugger
     console.log(this.selectedCheque , this.selectedContract);
-    
+   const hostname = this._window.location.hostname;
+    const tenancyName = hostname.includes('localhost') ? 'compassint' : hostname.split('.')[0];
     if (!this.proposedDate || !this.reason || !this.selectedContract || !this.selectedCheque) {
       this.formSubmitted = true;
       // Handle the case where the form is invalid
@@ -95,6 +100,8 @@ export class DelaychequerequestComponent implements OnInit {
       proposalDate: new Date(this.proposedDate).toLocaleDateString('en-GB'),
       reason: this.reason,
       attachment: '',
+     TenancyName: tenancyName,
+
       
     };
 

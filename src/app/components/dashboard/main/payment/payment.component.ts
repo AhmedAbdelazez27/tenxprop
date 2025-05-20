@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SpinnerService } from '../../../../shared/services/spinner.service';
@@ -7,6 +7,7 @@ import { LandingService } from '../servicesApi/landing.service';
 import { TranslateService } from '@ngx-translate/core';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { WINDOW, WindowProvider } from '../../../../shared/Providers/window-provider.service';
 
 
 @Component({
@@ -15,7 +16,7 @@ import { ToastModule } from 'primeng/toast';
   imports: [CommonModule, FormsModule, ToastModule],
   templateUrl: './payment.component.html',
   styleUrl: './payment.component.scss',
-  providers: [MessageService]
+  providers: [WindowProvider, MessageService]
 })
 export class PaymentComponent implements OnInit {
   contractsList: any[] = [];
@@ -32,6 +33,8 @@ export class PaymentComponent implements OnInit {
     private translate: TranslateService,
     private landingService: LandingService,
     private messageService: MessageService,
+   @Inject(WINDOW) private _window: Window
+
   ) {
 
   }
@@ -88,6 +91,7 @@ export class PaymentComponent implements OnInit {
   };
 
   setPayment(item: any) {
+    debugger
     this.selectedContract = { ...item }
   }
 
@@ -100,6 +104,12 @@ export class PaymentComponent implements OnInit {
   }
   submitedForm: boolean = false;
   requestChequeDelay() {
+    debugger
+  const hostname = this._window.location.hostname;
+    const tenancyName = hostname.includes('localhost') ? 'compassint' : hostname.split('.')[0];
+
+
+
     if (!this.proposedDate || !this.reason) {
       this.submitedForm = true;
       // Handle the case where the form is invalid
@@ -110,7 +120,9 @@ export class PaymentComponent implements OnInit {
       proposalDate: new Date(this.proposedDate).toLocaleDateString('en-GB'),
       reason: this.reason,
       attachment: '',
-      ArPdcInterfaceId: this.selectedContract?.arPdcInterfaceId, //this.selectedContract.listPmContractPayments[0].id
+      ArPdcInterfaceId: this.selectedContract?.arPdcInterfaceId, 
+      TenancyName: tenancyName,
+//this.selectedContract.listPmContractPayments[0].id
     };
 
     // رفع الملف أولاً

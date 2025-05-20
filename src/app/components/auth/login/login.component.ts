@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../shared/services/auth.service';
 import { MessageService } from 'primeng/api';
 import { SpinnerService } from '../../../shared/services/spinner.service';
 import { ToastModule } from 'primeng/toast';
+import { WINDOW, WindowProvider } from '../../../shared/Providers/window-provider.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,8 @@ import { ToastModule } from 'primeng/toast';
   imports: [CommonModule, ReactiveFormsModule,ToastModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
-  providers: [MessageService]
+  providers: [MessageService,WindowProvider],
+  
 })
 export class LoginComponent {
   loginForm: FormGroup;
@@ -23,6 +25,8 @@ export class LoginComponent {
     , private _AuthService : AuthService
     ,private messageService: MessageService
     ,private _SpinnerService: SpinnerService,
+   @Inject(WINDOW) private _window: Window
+    
   ) {
     this.loginForm = this.fb.group({
       userName: ['', Validators.required],
@@ -34,12 +38,24 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       this._SpinnerService.showSpinner();
   
-      const payload = {
-        ...this.loginForm.value,
-        tenantId: 7,
-        fcm: "",
-        tenancyName: "compassint"
-      };
+
+
+
+  let hostname = this._window.location.hostname;
+let tenancyName: string;
+
+if (hostname.includes('localhost')) {
+  tenancyName = 'compassint';
+} else {
+  tenancyName = hostname.split('.')[0];
+}
+
+const payload = {
+  ...this.loginForm.value,
+  //tenantId: 7,
+  fcm: "",
+  tenancyName: tenancyName
+};
   
       console.log(payload);
   
