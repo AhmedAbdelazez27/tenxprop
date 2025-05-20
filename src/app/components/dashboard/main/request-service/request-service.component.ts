@@ -22,6 +22,7 @@ export class RequestServiceComponent implements OnInit {
   complaintTypes: any[] = [];
   pmPropertiesList: any[] = [];
   units: any[] = [];
+  userData :any;
   isImage: boolean = false;
   isVideo: boolean = false;
   previewUrl: string | ArrayBuffer | null = null;
@@ -46,6 +47,8 @@ export class RequestServiceComponent implements OnInit {
     @Inject(WINDOW) private _window: Window
   ) {
     this.currentLang = this.translate.currentLang || this.translate.defaultLang;
+    let data = localStorage.getItem("userData")
+    this.userData = data ? JSON.parse(data) : {};
   }
 
   ngOnInit(): void {
@@ -54,7 +57,10 @@ export class RequestServiceComponent implements OnInit {
   }
 
   GetPmProperties() {
-    this.landingService.GetPmProperties().subscribe({
+
+    const userData = localStorage.getItem('userData');
+    const id = this.userData.userId ;
+    this.landingService.GetPmProperties( id).subscribe({
       next: (response) => {
         if (response?.result?.results) {
           this.pmPropertiesList = response.result.results;
@@ -72,8 +78,10 @@ export class RequestServiceComponent implements OnInit {
 
   onPropertyChange(propertyId: number) {
     this.formData.UnitId = null;
+    const userData = localStorage.getItem('userData');
+    const id = this.userData.userId ;
     if (propertyId) {
-      this.landingService.getloadUnits(propertyId).subscribe({
+      this.landingService.getloadUnits(id,propertyId).subscribe({
         next: (response) => {
           if (response?.result?.results) {
             this.units = response.result.results;

@@ -1,13 +1,13 @@
 <div class="main-section mt-4">
     <h1 class="main-blue mb-4">Welcome, <span>{{userData?.name}}</span></h1>
-    <div class="bg-white p-3 round-20">
+    <!-- <div class="bg-white p-3 round-20">
         <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
             industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
             scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into
             electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of
             Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like
             Aldus PageMaker including versions of Lorem Ipsum.</p>
-    </div>
+    </div> -->
 </div>
 
 <div class="row mt-4">
@@ -102,7 +102,7 @@
                         <th scope="col">Type</th>
                         <!-- <th scope="col">Payment</th> -->
                         <th scope="col">Amount</th>
-                        <th scope="col">Due Date</th>
+                        <th scope="col">Contract Date</th>
                         <th scope="col">Status</th>
                         <th scope="col">Actions</th>
                     </tr>
@@ -130,8 +130,8 @@
                                         d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                 </svg>
                             </button>
-                            <button title="Renew" class="btn btn-action"
-                                (click)="renewContract($event,item.pmContract.id)">
+                            <button title="Renew" class="btn btn-action" data-bs-toggle="modal" data-bs-target="#renewConfirmModal"
+                                 (click)="onRenewClick($event, item.pmContract.id)">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24"
                                     fill="none">
                                     <path
@@ -140,7 +140,7 @@
                                         stroke-linejoin="round" />
                                 </svg>
                             </button>
-                            <button class="btn btn-action" (click)="printPmContractData(item.pmContract.id)">
+                            <button class="btn btn-action" (click)="printPmContractData($event,item.pmContract.id)">
                                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                         fill="none">
                                         <path
@@ -148,6 +148,11 @@
                                             stroke="#4F5663" stroke-width="2" stroke-linecap="round"
                                             stroke-linejoin="round" />
                                     </svg>
+                            </button>
+                               <button class="btn btn-action" (click)="NewprintPmContractData($event,item.pmContract.id)">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
+                                    <path d="M4.85742 12V6C4.85742 5.46957 5.06814 4.96086 5.44321 4.58579C5.81828 4.21071 6.32699 4 6.85742 4H18.8574C19.3879 4 19.8966 4.21071 20.2716 4.58579C20.6467 4.96086 20.8574 5.46957 20.8574 6V18C20.8574 18.5304 20.6467 19.0391 20.2716 19.4142C19.8966 19.7893 19.3879 20 18.8574 20H12.8574M12.8574 8H16.8574M16.8574 8V12M16.8574 8L11.8574 13M3.85742 17C3.85742 16.7348 3.96278 16.4804 4.15032 16.2929C4.33785 16.1054 4.59221 16 4.85742 16H7.85742C8.12264 16 8.37699 16.1054 8.56453 16.2929C8.75206 16.4804 8.85742 16.7348 8.85742 17V20C8.85742 20.2652 8.75206 20.5196 8.56453 20.7071C8.37699 20.8946 8.12264 21 7.85742 21H4.85742C4.59221 21 4.33785 20.8946 4.15032 20.7071C3.96278 20.5196 3.85742 20.2652 3.85742 20V17Z" stroke="#4F5663" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
                             </button>
                         </td>
                     </tr>
@@ -186,3 +191,21 @@
 
 
 <p-toast position="top-right"></p-toast>
+<!-- Confirmation Modal -->
+<div class="modal fade" id="renewConfirmModal" tabindex="-1" aria-labelledby="renewConfirmModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="renewConfirmModalLabel">Confirm Renewal</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to renew this contract?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+        <button type="button" class="btn btn-primary"(click)="confirmRenewAction()" data-bs-dismiss="modal">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>

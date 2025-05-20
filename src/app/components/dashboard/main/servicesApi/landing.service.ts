@@ -98,7 +98,6 @@ export class LandingService {
     return this.http.get<any>(`${this.baseUrl}api/services/app/PmContract/GetArPdcInterfaceIdSelect2`,
       { params: httpParams });
   }
-
   GetAllPmLocalservicePortal(params: any): Observable<any> {
     let httpParams = new HttpParams();
     for (const key in params) {
@@ -106,7 +105,7 @@ export class LandingService {
         httpParams = httpParams.set(key, params[key]);
       }
     }
-    return this.http.get<any>(`${this.baseUrl}api/services/app/PmContract/GetAllPmLocalservicePortal`,
+    return this.http.get<any>(`${this.baseUrl}api/services/app/PmProperties/GetAllPmLocalservicePortal`,
       { params: httpParams });
   }
   createRequisition(data: any): Observable<any> {
@@ -126,12 +125,12 @@ export class LandingService {
     const url = `${this.baseUrl}api/services/app/JobOrder/UploadAttach`;
     return this.http.post<any>(url, formData);
   }
-  getloadUnits(propertyId: number, pageSize: number = 20, pageNumber: number = 1): Observable<any> {
-    const url = `${this.baseUrl}api/services/app/JobOrder/GetPmPropertiesUnitsPortal?propertyId=${propertyId}&pageSize=${pageSize}&pageNumber=${pageNumber}&lang=en-US`;
+  getloadUnits(id: number,propertyId: number, pageSize: number = 20, pageNumber: number = 1): Observable<any> {
+    const url = `${this.baseUrl}api/services/app/JobOrder/GetPmPropertiesUnitsPortal?Id=${id}&propertyId=${propertyId}&pageSize=${pageSize}&pageNumber=${pageNumber}&lang=en-US`;
     return this.http.get<any>(url);
   }
-  GetPmProperties(pageSize: number = 20, pageNumber: number = 1): Observable<any> {
-    const url = `${this.baseUrl}api/services/app/PmProperties/GetPmPropertiesNumberForPortalSelect2?pageSize=20&pageNumber=1&lang=en-US`;
+  GetPmProperties(id: number,pageSize: number = 20, pageNumber: number = 1): Observable<any> {
+    const url = `${this.baseUrl}api/services/app/PmProperties/GetPmPropertiesForPortalSelect2?Id=${id}&pageSize=20&pageNumber=1&lang=en-US`;
     return this.http.get<any>(url);
   }
 

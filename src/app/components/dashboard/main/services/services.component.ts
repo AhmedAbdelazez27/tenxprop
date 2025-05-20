@@ -21,6 +21,7 @@ export class ServicesComponent implements OnInit {
   currentLang: string = 'en';
   serviceList: any[] = [];
   feedback: string = '';
+  userData: any;
 
   showPopup: boolean = false;
   selectedItem: any = null;
@@ -39,6 +40,8 @@ export class ServicesComponent implements OnInit {
     @Inject(WINDOW) private _window: Window
   ) {
     this.currentLang = this.translate.currentLang || this.translate.defaultLang;
+    let data = localStorage.getItem("userData")
+    this.userData = data ? JSON.parse(data) : {};
   }
 
   ngOnInit(): void {
@@ -50,8 +53,8 @@ export class ServicesComponent implements OnInit {
     const lang = localStorage.getItem('language') || 'en';
     // const hostname = this._window.location.hostname;
     // const tenancyName = hostname.includes('localhost') ? 'compassint' : hostname.split('.')[0];
-    const id = 46;
-    this.landingService.getservices({ id, lang }).subscribe({
+    const userData = localStorage.getItem('userData');
+    this.landingService.getservices({ id:this.userData.userId, lang }).subscribe({
       next: (res) => {
         this.serviceList = res.result;
       },

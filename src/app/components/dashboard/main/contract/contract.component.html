@@ -191,7 +191,7 @@
                                         <td>{{ cheque?.checkNumber}}</td>
 
                                         <td> {{cheque?.paymentMaturityDate}} </td>
-                                        <td> {{cheque?.amount}} </td>
+                                        <td> {{cheque?.paymentAmount | currency: 'AED'  }} </td>
                                          <td>
                               <div [ngClass]="getStatusClass(cheque?.paymentStatus)">
                                 {{ cheque?.paymentStatus }}

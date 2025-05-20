@@ -28,7 +28,7 @@
                           <tr>
                             <th scope="col">Cheque Number</th>
                             <th scope="col">Rental amount</th>
-                            <th scope="col">Due Date</th>
+                            <th scope="col">Date</th>
                             <th scope="col">Status</th>
                             <!-- <th scope="col">Payment</th> -->
                             <th scope="col">Request Cheque Delay</th>
@@ -53,9 +53,9 @@
       
                           </td>
                           </tr> -->
-                          <tr *ngFor="let payment of contract?.listPmContractPayments">
+                          <tr *ngFor="let payment of contract?.listArPdcInterfaceDetails">
                             <td>{{ payment?.checkNumber}}</td>
-                            <td>{{ payment?.amount | currency: 'AED' }}</td>
+                            <td>{{ payment?.paymentAmount | currency: 'AED' }}</td>
                             <td>{{ payment?.paymentMaturityDate }}</td>
                             <td>
                               <div [ngClass]="getStatusClass(payment?.paymentStatus)">
@@ -98,15 +98,15 @@
                 <div class="row mb-3">
                     <div class="col-lg-4 mb-3">
                         <p class="bold main-blue">Amount</p>
-                        <p>{{selectedContract?.amount +"AED"}}</p>
+                        <p>{{selectedContract?.paymentAmount +"AED"}}</p>
                     </div>
                     <div class="col-lg-4 mb-3">
                         <p class="bold main-blue">Cheque</p>
                         <p>{{selectedContract?.checkNumber || '--'}}</p>
                     </div>
                     <div class="col-lg-4 mb-3">
-                        <p class="bold main-blue">Due Date</p>
-                        <p>{{selectedContract?.paymentDate}}</p>
+                        <p class="bold main-blue">Date</p>
+                        <p>{{selectedContract?.paymentMaturityDate}}</p>
                     </div>
 
                 </div>

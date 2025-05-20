@@ -48,10 +48,22 @@ export class LocalserviceComponent implements OnInit{
   GetAllPmLocalservicePortal() {
     this._SpinnerService.showSpinner();
     // const hostname = this._window.location.hostname;
-    // const tenancyName = hostname.includes('localhost') ? 'compassint' : hostname.split('.')[0];
-    const id = 46 ;
+    // const tenancyName = hostname.includes('localhost') ? 'compassint' : hostname.split('.')[0]; 
+    //const id = 46 ;
+   let userId = null; // تعيين قيمة افتراضية
 
-    this.landingService.GetAllPmLocalservicePortal({ id }).subscribe({
+    const userData = localStorage.getItem('userData');
+ 
+
+    if (userData) {
+      try {
+        userId = JSON.parse(userData)?.userId;
+      } catch (e) {
+        console.error('Error parsing userData from localStorage', e);
+      }
+    }
+
+    this.landingService.GetAllPmLocalservicePortal({ Id: userId }).subscribe({
       next: (res) => {
         this._SpinnerService.hideSpinner();
         this.localserviceList = res.result;
@@ -79,7 +91,6 @@ export class LocalserviceComponent implements OnInit{
       groupedByContract.get(contractKey).push(service);
     }
   
-    // Now further group each contract group by categoryTypeLkp
     this.groupedLocalservices = Array.from(groupedByContract.entries()).map(
       ([contractnumber, services]) => {
         const categoryMap = new Map();
@@ -112,11 +123,9 @@ export class LocalserviceComponent implements OnInit{
 
     getStatusClass(status: any): string {
       if (!status) {
-        return ''; // If status is not available, return empty
+        return ''; 
       }
-    
-      // Check the status and return the corresponding class
-      switch (status.nameEn) {
+          switch (status.nameEn) {
         case 'Posted':
           return 'status-green';
         case 'New':
