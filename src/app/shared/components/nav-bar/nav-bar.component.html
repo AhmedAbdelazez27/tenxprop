@@ -2,7 +2,7 @@
     <div class="container-fluid">
     <a class="navbar-brand" [routerLink]="['/Main/Home']">
    <img src="../../../../assets/images/logo.png" />
-  <img [src]="logoPath" alt="Logo" *ngIf="logoPath" class="logo-img">
+  <!-- <img [src]="logoPath" alt="Logo" *ngIf="logoPath" class="logo-img"> -->
 </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -68,8 +68,8 @@
             </ul>
             <div class="d-flex gap-4">
                 <button class="btn btn-frofile">
-                    <img src="../../../../assets/images/avatar.jpg" />
-                     {{this?.userData?.name}}
+                    <img  [src]="logoPath" alt="Logo" *ngIf="logoPath" class="logo-img" />
+                     {{this?.userData?.name | slice:0:(this?.userData?.name.indexOf('@'))}}
                 </button>
                 <!-- <button class="btn btn-notification position-relative">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">

@@ -33,7 +33,7 @@ export class PaymentComponent implements OnInit {
     private translate: TranslateService,
     private landingService: LandingService,
     private messageService: MessageService,
-   @Inject(WINDOW) private _window: Window
+    @Inject(WINDOW) private _window: Window
 
   ) {
 
@@ -47,6 +47,8 @@ export class PaymentComponent implements OnInit {
         return 'status-renew';
       case 'Expired':
         return 'status-expired';
+      case 'Cleared':
+        return 'status-cleared';
       case 'Canceled':
         return 'status-canceled';
       case 'New':
@@ -105,7 +107,7 @@ export class PaymentComponent implements OnInit {
   submitedForm: boolean = false;
   requestChequeDelay() {
     debugger
-  const hostname = this._window.location.hostname;
+    const hostname = this._window.location.hostname;
     const tenancyName = hostname.includes('localhost') ? 'compassint' : hostname.split('.')[0];
 
 
@@ -120,9 +122,9 @@ export class PaymentComponent implements OnInit {
       proposalDate: new Date(this.proposedDate).toLocaleDateString('en-GB'),
       reason: this.reason,
       attachment: '',
-      ArPdcInterfaceId: this.selectedContract?.arPdcInterfaceId, 
+      ArPdcInterfaceId: this.selectedContract?.arPdcInterfaceId,
       TenancyName: tenancyName,
-//this.selectedContract.listPmContractPayments[0].id
+      //this.selectedContract.listPmContractPayments[0].id
     };
 
     // رفع الملف أولاً

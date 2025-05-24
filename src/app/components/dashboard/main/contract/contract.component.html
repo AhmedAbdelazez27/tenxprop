@@ -179,6 +179,7 @@
                             <table class="table">
                                 <thead>
                                     <tr>
+                                        <th scope="col">Payment Method</th>
                                         <th scope="col">Cheque Number</th>
 
                                         <th scope="col">Date</th>
@@ -188,16 +189,35 @@
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let cheque of contract?.listArPdcInterfaceDetails">
+                                        <td>{{cheque?.checkNumber ? "Cheque" : ""}}</td>
                                         <td>{{ cheque?.checkNumber}}</td>
 
                                         <td> {{cheque?.paymentMaturityDate}} </td>
-                                        <td> {{cheque?.paymentAmount | currency: 'AED'  }} </td>
-                                         <td>
-                              <div [ngClass]="getStatusClass(cheque?.paymentStatus)">
-                                {{ cheque?.paymentStatus }}
-                              </div>
-                            </td>
+                                        <td> {{cheque?.paymentAmount | currency: 'AED' }} </td>
+                                        <td>
+                                            <div [ngClass]="getStatusClass(cheque?.paymentStatus)">
+                                                {{ cheque?.paymentStatus }}
+                                            </div>
+                                        </td>
                                     </tr>
+                                    <ng-container *ngFor="let paymentAnotherItem of contract?.listPmContractPayments">
+                                        <tr *ngIf="paymentAnotherItem?.fndPaymentTypeLkptext != 'Check'">
+                                            <td>{{paymentAnotherItem?.checkNumber ? "Cheque" :
+                                                paymentAnotherItem?.fndPaymentTypeLkptext}}</td>
+                                            <td>{{ paymentAnotherItem?.checkNumber}}</td>
+
+                                            <td> {{paymentAnotherItem?.paymentMaturityDate}} </td>
+                                            <td> {{paymentAnotherItem?.paymentAmount | currency: 'AED' }} </td>
+                                            <td>
+                                                <div [ngClass]="getStatusClass(paymentAnotherItem?.paymentStatus)">
+                                                    {{ paymentAnotherItem?.paymentStatus }}
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </ng-container>
+
+
+
 
                                 </tbody>
                             </table>

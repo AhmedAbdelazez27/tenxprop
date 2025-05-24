@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, Observable, of, tap } from 'rxjs';
 import { environment } from '../../../../../environments/environment';
 
 @Injectable({
@@ -23,6 +23,12 @@ export class LandingService {
       { params: httpParams });
   }
   getPayments(params: any): Observable<any> {
+      const cachedData = localStorage.getItem('baseData');
+    if (cachedData) {
+      console.log('Using cached data from localStorage');
+      return of(JSON.parse(cachedData));
+    }
+
     let httpParams = new HttpParams();
     for (const key in params) {
       if (params[key] != null && params[key] !== '') {
@@ -30,7 +36,16 @@ export class LandingService {
       }
     }
     return this.http.get<any>(`${this.baseUrl}api/services/app/PmContract/GetAllPmcontractDataForPortal`,
-      { params: httpParams });
+      { params: httpParams }).pipe(
+      tap((data) => {
+        console.log('Data fetched and stored in localStorage');
+        localStorage.setItem('baseData', JSON.stringify(data));
+      }),
+      catchError((error) => {
+        console.error('Error fetching data', error);
+        return of(null);
+      })
+    );;
   }
 
 

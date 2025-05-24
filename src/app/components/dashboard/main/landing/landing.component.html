@@ -1,5 +1,5 @@
 <div class="main-section mt-4">
-    <h1 class="main-blue mb-4">Welcome, <span>{{userData?.name}}</span></h1>
+    <h1 class="main-blue mb-4">Welcome, <span>{{userData?.name | slice:0:(userData?.name.indexOf('@'))}}</span></h1>
     <!-- <div class="bg-white p-3 round-20">
         <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
             industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and

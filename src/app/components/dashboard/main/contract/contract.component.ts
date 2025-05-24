@@ -9,16 +9,16 @@ import { LandingService } from '../servicesApi/landing.service';
 @Component({
   selector: 'app-contract',
   standalone: true,
-  imports: [TranslateModule,CommonModule,FormsModule,RouterModule],
+  imports: [TranslateModule, CommonModule, FormsModule, RouterModule],
   templateUrl: './contract.component.html',
   styleUrl: './contract.component.scss'
 })
-export class ContractComponent implements OnInit{
-  currentItemCollabsed:any;
+export class ContractComponent implements OnInit {
+  currentItemCollabsed: any;
   currentLang: string = 'en'; // or 'ar', based on your logic
-  contractsList: any[]=[];
+  contractsList: any[] = [];
   userId: any;
-  printPmContractDataList:any=[];
+  printPmContractDataList: any = [];
 
   constructor(
     private _SpinnerService: SpinnerService,
@@ -27,60 +27,60 @@ export class ContractComponent implements OnInit{
     private landingService: LandingService,
     private route: ActivatedRoute
 
-  ){
+  ) {
     this.currentLang = this.translate.currentLang || this.translate.defaultLang;
   }
   ngOnInit(): void {
     this.getContracts();
-              // Capture the query parameters from the URL
-   
+    // Capture the query parameters from the URL
+
   }
 
-  
-  getContracts(){
-      let userId = null; // تعيين قيمة افتراضية
-  
-      const userData = localStorage.getItem('userData');
-      
-      if (userData) {
-        try {
-          userId = JSON.parse(userData)?.userId;
-          this.userId =userId;
-        } catch (e) {
-          console.error('Error parsing userData from localStorage', e);
-        }
+
+  getContracts() {
+    let userId = null; // تعيين قيمة افتراضية
+
+    const userData = localStorage.getItem('userData');
+
+    if (userData) {
+      try {
+        userId = JSON.parse(userData)?.userId;
+        this.userId = userId;
+      } catch (e) {
+        console.error('Error parsing userData from localStorage', e);
       }
-      
-  
-      this._SpinnerService.showSpinner();
-      this.landingService.getPayments({Id:userId}).subscribe({
-        next: (res)=>{
-          console.log(res);
-          this._SpinnerService.hideSpinner();
-          this.contractsList= res.result?.items;
+    }
 
-          this.route.queryParams.subscribe(params => {
-  // Corrected the typo here from 'currentItemCollabsed' to 'currentItemCollapsed'
-  this.currentItemCollabsed = params['currentItemCollapsed']; 
-  if (this.currentItemCollabsed) {
-    console.log("details");
-  } else {
-    this.currentItemCollabsed = this.contractsList[0]?.id;
-  }
-  console.log("this.currentItemCollabsed", this.currentItemCollabsed);
-});
 
-          
-        },
-        error: (error)=>{
-          this._SpinnerService.hideSpinner();
-  
-        },
-        complete: ()=>{
-          this._SpinnerService.hideSpinner();
-        }
-      })
-    };
+    this._SpinnerService.showSpinner();
+    this.landingService.getPayments({ Id: userId }).subscribe({
+      next: (res) => {
+        console.log(res);
+        this._SpinnerService.hideSpinner();
+        this.contractsList = res.result?.items;
+
+        this.route.queryParams.subscribe(params => {
+          // Corrected the typo here from 'currentItemCollabsed' to 'currentItemCollapsed'
+          this.currentItemCollabsed = params['currentItemCollapsed'];
+          if (this.currentItemCollabsed) {
+            console.log("details");
+          } else {
+            this.currentItemCollabsed = this.contractsList[0]?.id;
+          }
+          console.log("this.currentItemCollabsed", this.currentItemCollabsed);
+        });
+
+
+      },
+      error: (error) => {
+        this._SpinnerService.hideSpinner();
+
+      },
+      complete: () => {
+        this._SpinnerService.hideSpinner();
+      }
+    })
+  };
   getStatusClass(status: string): string {
     switch (status) {
       case 'Renew':
@@ -89,46 +89,48 @@ export class ContractComponent implements OnInit{
         return 'status-expired';
       case 'Canceled':
         return 'status-canceled';
+      case 'Cleared':
+        return 'status-cleared';
       case 'New':
         return 'status-new';
       case 'received':
-        return 'status-received';  
+        return 'status-received';
       default:
         return ''; // Default case, no class applied
     }
   }
 
-    
-printPmContractData(id: any) {
-  // debugger;
-      this._SpinnerService.showSpinner();
 
-  const lang = localStorage.getItem('lang') || 'en';
-  this.landingService.printPmContract(id , lang).subscribe(
-    (result) => {
-      console.log(result);
-      if (result?.success && result.result) {
-        this.printPmContractDataList = Array.isArray(result.result) ? result.result : [result.result];
-        
-        this.openPrintPreview();
-       this._SpinnerService.hideSpinner();
+  printPmContractData(id: any) {
+    // debugger;
+    this._SpinnerService.showSpinner();
 
+    const lang = localStorage.getItem('lang') || 'en';
+    this.landingService.printPmContract(id, lang).subscribe(
+      (result) => {
+        console.log(result);
+        if (result?.success && result.result) {
+          this.printPmContractDataList = Array.isArray(result.result) ? result.result : [result.result];
+
+          this.openPrintPreview();
+          this._SpinnerService.hideSpinner();
+
+        }
+      },
+      (error) => {
+        console.error('Error fetching contract data:', error);
       }
-    },
-    (error) => {
-      console.error('Error fetching contract data:', error);
-    }
-  );
-}
-openPrintPreview() {
-  const printWindow = window.open('', '_blank');
-  if (!printWindow) return;
-  const pmcontract = this.printPmContractDataList[0]; 
-const contractStartDate = (pmcontract.contractStartDate || '').split('T')[0];
-const contractEndDate = (pmcontract.contractEndDate || '').split('T')[0];
-const paymentRows = this.printPmContractDataList.map((pmcontract: { payType: any; payNumber: any; payDate: any; }, index: number) => {
-  const payDate = pmcontract.payDate ? new Date(pmcontract.payDate).toISOString().split('T')[0] : '';
-  return `
+    );
+  }
+  openPrintPreview() {
+    const printWindow = window.open('', '_blank');
+    if (!printWindow) return;
+    const pmcontract = this.printPmContractDataList[0];
+    const contractStartDate = (pmcontract.contractStartDate || '').split('T')[0];
+    const contractEndDate = (pmcontract.contractEndDate || '').split('T')[0];
+    const paymentRows = this.printPmContractDataList.map((pmcontract: { payType: any; payNumber: any; payDate: any; }, index: number) => {
+      const payDate = pmcontract.payDate ? new Date(pmcontract.payDate).toISOString().split('T')[0] : '';
+      return `
     <tr>
       <td style="border: 1px solid #000; padding: 8px; text-align: center;">${index + 1}</td>
       <td style="border: 1px solid #000; padding: 8px;">${pmcontract.payType || ''}</td>
@@ -137,9 +139,9 @@ const paymentRows = this.printPmContractDataList.map((pmcontract: { payType: any
       <td style="border: 1px solid #000; padding: 8px;"></td>
     </tr>
   `;
-}).join('');
+    }).join('');
 
-  printWindow.document.write(`
+    printWindow.document.write(`
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -364,10 +366,10 @@ const paymentRows = this.printPmContractDataList.map((pmcontract: { payType: any
 </body>
 </html>
   `);
-  printWindow.document.close();
-  printWindow.focus();
-  printWindow.print();
-}
+    printWindow.document.close();
+    printWindow.focus();
+    printWindow.print();
+  }
 
-    
+
 }

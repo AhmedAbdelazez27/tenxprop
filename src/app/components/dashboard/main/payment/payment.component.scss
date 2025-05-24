@@ -91,3 +91,19 @@
     letter-spacing: -0.1px;
     width: max-content;
 }
+.status-cleared {
+  background-color: #d1ecf1;
+  color: #0c5460;
+  display: flex;
+  padding: 4px 8px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: -0.1px;
+  width: max-content;
+}

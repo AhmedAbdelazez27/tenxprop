@@ -34,7 +34,7 @@ export class DashboardComponent implements OnInit,OnDestroy{
   ngOnInit() { }
 
   ngOnDestroy(): void {
-    
+    localStorage.removeItem("baseData")
   }
   
 }

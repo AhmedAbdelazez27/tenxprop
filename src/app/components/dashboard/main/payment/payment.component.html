@@ -26,6 +26,7 @@
                       <table class="table main-table">
                         <thead>
                           <tr>
+                            <th scope="col">Payment Method</th>
                             <th scope="col">Cheque Number</th>
                             <th scope="col">Rental amount</th>
                             <th scope="col">Date</th>
@@ -57,6 +58,7 @@
   
                           <input type="hidden" [value]="payment?.pmContractId" name="pmContractId" />
   
+                            <td>{{payment?.checkNumber ? "Cheque" : ""}}</td>
                             <td>{{ payment?.checkNumber}}</td>
                             <td>{{ payment?.paymentAmount | currency: 'AED' }}</td>
                             <td>{{ payment?.paymentMaturityDate }}</td>
@@ -74,6 +76,21 @@
                               </button>
                             </td>
                           </tr>
+                          <ng-container *ngFor="let paymentAnotherItem of contract?.listPmContractPayments">
+                                        <tr *ngIf="paymentAnotherItem?.fndPaymentTypeLkptext != 'Check'">
+                                            <td>{{paymentAnotherItem?.checkNumber ? "Cheque" :
+                                                paymentAnotherItem?.fndPaymentTypeLkptext}}</td>
+                                            <td>{{ paymentAnotherItem?.checkNumber}}</td>
+
+                                            <td> {{paymentAnotherItem?.paymentMaturityDate}} </td>
+                                            <td> {{paymentAnotherItem?.paymentAmount | currency: 'AED' }} </td>
+                                            <td>
+                                                <div [ngClass]="getStatusClass(paymentAnotherItem?.paymentStatus)">
+                                                    {{ paymentAnotherItem?.paymentStatus }}
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </ng-container>
                         </tbody>
                       </table>
                     </div>
